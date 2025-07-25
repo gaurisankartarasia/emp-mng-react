@@ -99,8 +99,10 @@ import UnauthorizedPage from '../pages/UnauthorizedPage';
 import AccountDisplayPage from '../pages/AccountPage';
 import AccountEditPage from '../pages/AccountEditPage';
 import AccountSettingsPage from '../pages/AccountSettingsPage';
+import ActivateAccountPage from '@/pages/ActivateAccountPage';
+import PolicyPage from '@/pages/HrPolicyPage';
+import PageNotFound from '@/pages/404/not-found';
 
-// A helper component to avoid repetition
 const ProtectedPage = ({ children, permission }) => (
   <ProtectedRoute permission={permission}>
     <Layout>
@@ -112,7 +114,11 @@ const ProtectedPage = ({ children, permission }) => (
 const AppRoutes = () => {
   return (
     <Routes>
+
+ <Route path="*" element={<PageNotFound />} />
+
       <Route path="/login" element={<LoginPage />} />
+           <Route path="/activate-account" element={<ActivateAccountPage />} /> 
       <Route path="/unauthorized" element={<UnauthorizedPage />} />
       
       <Route path="/" element={<ProtectedPage><DashboardPage /></ProtectedPage>} />
@@ -122,8 +128,9 @@ const AppRoutes = () => {
       <Route path="/employees" element={<ProtectedPage permission={PERMISSIONS.VIEW_EMPLOYEE_MANAGEMENT}><EmployeeManagementPage /></ProtectedPage>} />
       <Route path="/employees/add" element={<ProtectedPage permission={PERMISSIONS.VIEW_EMPLOYEE_MANAGEMENT}><AddEmployeePage /></ProtectedPage>} />
       <Route path="/employees/:id/edit" element={<ProtectedPage permission={PERMISSIONS.VIEW_EMPLOYEE_MANAGEMENT}><EditEmployeePage /></ProtectedPage>} />
-      
+      <Route path="/hr-policy" element={<ProtectedPage ><PolicyPage /></ProtectedPage>} />
       <Route path="/increment-report" element={<ProtectedPage permission={PERMISSIONS.VIEW_INCREMENT_REPORT}><IncrementReportPage /></ProtectedPage>} />
+      
       <Route path="/manage-permissions" element={<ProtectedPage permission={PERMISSIONS.MANAGE_EMPLOYEE_PERMISSIONS}><ManagePermissionsPage /></ProtectedPage>} />
  <Route path="/account" element={<ProtectedPage><AccountDisplayPage /></ProtectedPage>} />
       <Route path="/account/edit" element={<ProtectedPage><AccountEditPage /></ProtectedPage>} />

@@ -1,30 +1,72 @@
+// import { useTheme } from "@/context/ThemeProvider";
+// import { Button } from "@/components/ui/button";
+// import {
+//   DropdownMenu,
+//   DropdownMenuTrigger,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+// } from "@/components/ui/dropdown-menu";
+// import { Sun, Moon } from "lucide-react";
+
+// export function ModeToggle() {
+//   const { theme, setTheme } = useTheme();
+
+//   return (
+//     <DropdownMenu>
+//       <DropdownMenuTrigger asChild>
+//         <Button variant="ghost" size="icon">
+//           <Sun className="h-5 w-5 transition-all dark:hidden" />
+//           <Moon className="h-5 w-5 hidden dark:block" />
+//           <span className="sr-only">Toggle theme</span>
+//         </Button>
+//       </DropdownMenuTrigger>
+//       <DropdownMenuContent align="end">
+//         <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
+//         <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
+//         <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
+//       </DropdownMenuContent>
+//     </DropdownMenu>
+//   );
+// }
+
+
+
+import { useEffect, useState } from "react";
 import { useTheme } from "@/context/ThemeProvider";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
 import { Sun, Moon } from "lucide-react";
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    if (!theme) {
+      setTheme("system");
+    }
+    setMounted(true);
+  }, [theme, setTheme]);
+
+  if (!mounted) return null;
+
+  const toggleTheme = () => {
+    if (theme === "light") {
+      setTheme("dark");
+    } else if (theme === "dark") {
+      setTheme("light");
+    } else {
+      const isSystemDark =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setTheme(isSystemDark ? "light" : "dark");
+    }
+  };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Sun className="h-5 w-5 transition-all dark:hidden" />
-          <Moon className="h-5 w-5 hidden dark:block" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Button variant="ghost" size="icon" onClick={toggleTheme}>
+      <Sun className="h-5 w-5 transition-all dark:hidden" />
+      <Moon className="h-5 w-5 hidden dark:block" />
+      <span className="sr-only">Toggle theme</span>
+    </Button>
   );
 }

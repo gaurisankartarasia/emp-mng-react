@@ -22,9 +22,9 @@ export const ImageUploader = ({ defaultImage, onFileSelect }) => {
     const handleRemoveImage = () => {
         setPreview(null);
         if (fileInputRef.current) {
-            fileInputRef.current.value = ""; // Clear the file input
+            fileInputRef.current.value = ""; 
         }
-        onFileSelect(null); // Signal that the image should be removed
+        onFileSelect(null); 
     };
 
     return (
@@ -42,11 +42,11 @@ export const ImageUploader = ({ defaultImage, onFileSelect }) => {
                     className="hidden"
                 />
                 <Button type="button" onClick={() => fileInputRef.current.click()}>
-                    <Upload className="mr-2 h-4 w-4"/> Change Picture
+                    <Upload /> Change Picture
                 </Button>
                 {preview && (
                     <Button type="button" variant="ghost" onClick={handleRemoveImage}>
-                        <X className="mr-2 h-4 w-4"/> Remove
+                        <X /> Remove
                     </Button>
                 )}
             </div>

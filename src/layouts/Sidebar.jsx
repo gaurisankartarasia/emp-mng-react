@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import useAuth from "@/hooks/useAuth";
 import { PERMISSIONS } from "@/config/permissions";
-import { Separator } from "@/components/ui/separator";
 
 const navItems = [
   { href: "/", icon: LayoutDashboard, label: "Dashboard", permission: null },
@@ -24,6 +23,12 @@ const navItems = [
     href: "/increment-report",
     icon: TrendingUp,
     label: "Increment Report",
+    permission: PERMISSIONS.PAGES.INCREMENT_REPORT,
+  },
+  {
+    href: "/hr-policy",
+    icon: TrendingUp,
+    label: "HR Policy",
     permission: PERMISSIONS.PAGES.INCREMENT_REPORT,
   },
   {
@@ -45,11 +50,11 @@ export function Sidebar() {
   };
 
   return (
-    <div className="hidden border-r bg-sidebar md:block">
+    <div className="hidden border-r bg-sidebar text-sidebar-foreground md:block  ">
       <div className="flex h-full max-h-screen flex-col gap-2">
-        <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
+        <div className="flex h-14 items-center border-b border-[#7f7f80] px-4 lg:h-[60px] lg:px-6">
           <Link to="/" className="flex items-center gap-2 font-semibold">
-            <span className="">ST5</span>
+            <span className="">ST-5</span>
           </Link>
         </div>
         <div className="flex-1">
@@ -57,18 +62,19 @@ export function Sidebar() {
             {navItems
               .filter((item) => hasPermission(item.permission))
               .map((item) => (
-                <>
-                  <Link key={item.href} to={item.href} className="my-1" >
-                    <Button
-                      variant={pathname === item.href ? "secondary" : "ghost"}
-                      className="w-full h-12 justify-start"
-                    >
-                      <item.icon className="mr-2" />
-                      {item.label}
-                    </Button>
-                  </Link>
-                  <Separator className="opacity-50" />
-                </>
+                <div key={item.href}>
+                  <div className="border-b border-[#bbbbbb]  dark:border-[#7e7e7e8e]" >
+                    <Link to={item.href} className="my-1 ">
+                      <Button
+                        variant={pathname === item.href ? "default" : "ghost"}
+                        className="w-full h-12 rounded-sm justify-start"
+                      >
+                        <item.icon className="mr-2" />
+                        {item.label}
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
               ))}
           </nav>
         </div>

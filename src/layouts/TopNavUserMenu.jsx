@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,19 +11,27 @@ import {
 } from "@/components/ui/dropdown-menu";
 import  useAuth  from "@/hooks/useAuth";
 import { Link } from "react-router-dom";
-import { CircleUser, Settings } from "lucide-react";
+import { CircleUser, Settings, LogOut } from "lucide-react";
 
 export function UserNav() {
   const { user, logout } = useAuth();
-  const userInitial = user?.name?.charAt(0).toUpperCase() || '?';
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api", "");
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-8 w-8">
-            <AvatarFallback>{userInitial}</AvatarFallback>
-          </Avatar>
+        <Button variant="ghost" className="relative h-8 w-8 ">
+       <Avatar
+  className={`h-8 w-8 ${
+    user.is_master ? "ring-3 ring-primary ring-offset-3 ring-offset-background" : ""
+  }`}
+>
+  <AvatarImage src={user.picture ? `${apiBaseUrl}${user.picture}` : undefined} />
+  <AvatarFallback>
+    <CircleUser />
+  </AvatarFallback>
+</Avatar>
+
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
@@ -44,7 +52,7 @@ export function UserNav() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={logout} className="cursor-pointer">
-          Log out
+         <LogOut/> Log out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

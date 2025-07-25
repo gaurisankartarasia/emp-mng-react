@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import apiClient from "../api/axiosConfig";
-// We no longer need useAuth here since the backend handles filtering
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -8,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
-import {  Users, Search, RefreshCw } from "lucide-react";
+import {  Users, Search, RefreshCw, CircleUser, Circle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
@@ -88,7 +87,6 @@ const canUpdate =
     };
 
     fetchManageableEmployees();
-    // Only fetch all permissions once on initial load
     if (allPermissions.length === 0) {
       fetchAllPermissions();
     }
@@ -157,20 +155,20 @@ const canUpdate =
                   <Input
                     type="search"
                     placeholder="Search employees..."
-                    className="w-full pl-8"
+                    className="w-full pl-8 shadow-md"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
               </CardHeader>
               <CardContent>
-                <ScrollArea className="h-[700px]">
+                <ScrollArea className="h-[660px] px-5">
                   {employees.map((emp) => (
                     <div key={emp.id}>
                    <Card
   onClick={() => handleSelectEmployee(emp)}
   className={cn(
-    "w-full cursor-pointer hover:bg-muted px-2 py-1 mb-2",
+    "w-full cursor-pointer hover:bg-muted px-2 py-3 mb-2 shadow-md ",
     selectedEmployee?.id === emp.id && "bg-accent/50 border border-accent"
   )}
 >
@@ -180,14 +178,14 @@ const canUpdate =
         src={emp.picture ? `${apiBaseUrl}${emp.picture}` : ""}
         alt={emp.name}
       />
-      <AvatarFallback>{emp.name.charAt(0).toUpperCase()}</AvatarFallback>
+      <AvatarFallback> <CircleUser/> </AvatarFallback>
     </Avatar>
     <div className="flex flex-col justify-center space-y-0.5">
       <p className="text-xs text-muted-foreground">
         Emp ID:{" "}
         <span className="font-semibold text-foreground">{emp.id}</span>
       </p>
-      <p className="text-sm font-medium text-foreground">{emp.name}</p>
+      <p className="text-sm text-foreground">{emp.name}</p>
       <p className="text-sm text-muted-foreground">{emp.email}</p>
     </div>
   </CardHeader>
@@ -223,6 +221,7 @@ const canUpdate =
                               className="flex items-center space-x-3 p-2 rounded-md hover:bg-accent"
                             >
                               <Checkbox
+                              className="shadow-xl border"
                                 id={`perm-${perm.id}`}
                                 checked={employeePermissionIds.has(perm.id)}
                                 onCheckedChange={(checked) =>
@@ -253,7 +252,7 @@ const canUpdate =
                       >
                         {loading.saving && (
                           <Spinner color="white" size={20}  />
-                        )}{" "}
+                        )}
                         <RefreshCw/>
                         Sync changes
                       </Button>

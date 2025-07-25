@@ -1,107 +1,153 @@
-import React, { useState, useEffect } from 'react';
-import apiClient from '../api/axiosConfig';
-import useAuth from '../hooks/useAuth';
-import { DashboardCard } from '@/components/DashboardCard';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import {  Users, ListChecks, Activity, Star } from "lucide-react";
-import { formatDate } from '@/utils/dateFormat';
-import { Spinner } from '@/components/ui/spinner';
+
+import React, { useState, useEffect } from "react";
+import apiClient from "../api/axiosConfig";
+import useAuth from "../hooks/useAuth";
+import { DashboardCard } from "@/components/dashboard/DashboardCard";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+import { Spinner } from "@/components/ui/spinner";
+import { Users, ListChecks, Activity, Star } from "lucide-react";
+import PerformanceChart from "@/components/dashboard/PerformanceChart";
+import { PERMISSIONS } from "../config/permissions";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const DashboardPage = () => {
-    const [summary, setSummary] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const { user } = useAuth();
+  const [summary, setSummary] = useState(null);
+  const [weeklyChartData, setWeeklyChartData] = useState([]);
+  const [monthlyChartData, setMonthlyChartData] = useState([]);
+  const [performanceView, setPerformanceView] = useState("all");   
+  const [loading, setLoading] = useState({ summary: true, charts: true });
+  const { user } = useAuth();
 
-    useEffect(() => {
-        const fetchSummary = async () => {
-            try {
-                const res = await apiClient.get('/dashboard/summary');
-                setSummary(res.data);
-            } catch (error) {
-                console.error("Failed to load dashboard data.", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchSummary();
-    }, []);
+  const canViewAllPerformance =
+    user.is_master ||
+    user.permissions.includes(PERMISSIONS.VIEW_ALL_PERFORMANCE_CHART);
 
-    const getStatusBadge = (status) => {
-        const config = {
-            pending: { variant: "secondary", label: "Pending" },
-            in_progress: { variant: "default", label: "In Progress" },
-            paused: { variant: "outline", label: "Paused" },
-            completed: { variant: "default", className: "bg-green-600", label: "Completed" }
-        }[status] || { variant: "secondary", label: status };
-        return <Badge variant={config.variant} className={config.className}>{config.label}</Badge>;
+  useEffect(() => {
+    apiClient
+      .get("/dashboard/summary")
+      .then((res) => setSummary(res.data))
+      .finally(() => setLoading((prev) => ({ ...prev, summary: false })));
+  }, []);
+
+  useEffect(() => {
+    const fetchChartData = async () => {
+      setLoading((prev) => ({ ...prev, charts: true }));
+      try {
+        const res = await apiClient.get("/dashboard/charts", {
+          params: { view: canViewAllPerformance ? performanceView : "self" },
+        });
+        setWeeklyChartData(res.data.weeklyData);
+        setMonthlyChartData(res.data.monthlyData);
+      } catch (error) {
+        console.error("Failed to load chart data.", error);
+      } finally {
+        setLoading((prev) => ({ ...prev, charts: false }));
+      }
     };
+    fetchChartData();
+  }, [performanceView, canViewAllPerformance]);
 
-    if (loading || !summary) {
-        return <div className="flex justify-center items-center h-64"><Spinner/></div>;
-    }
+  return (
+    <div className="container mx-auto py-6 space-y-6">
+      <div className="flex flex-col sm:flex-row sm:justify-end sm:items-center ">
+        {canViewAllPerformance && (
+          <div className="flex items-center space-x-2 mt-4 sm:mt-0">
+            <Select
+              value={performanceView}
+              onValueChange={(value) => setPerformanceView(value)}
+            >
+              <SelectTrigger id="view-mode" className="w-[180px]">
+                <SelectValue placeholder="Select view" />
+              </SelectTrigger>
+              <SelectContent>
+                {!user.is_master && <SelectItem value="self">Myself</SelectItem> }
+                <SelectItem value="all">All Employees</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+      </div>
 
-    const icons = [Users, ListChecks, Activity, Star];
-
-    return (
-        <div className="container mx-auto space-y-6">
-            <div>
-                <h1 className="text-xl font-bold">Welcome back, {user.name}!</h1>
-                <p className="text-muted-foreground">Here's a summary of what's happening.</p>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <DashboardCard title={summary.kpi1.title} value={summary.kpi1.value} icon={icons[0]} />
-                <DashboardCard title={summary.kpi2.title} value={summary.kpi2.value} icon={icons[1]} />
-                <DashboardCard title={summary.kpi3.title} value={summary.kpi3.value} icon={icons[2]} />
-                <DashboardCard title={summary.kpi4.title} value={summary.kpi4.value} icon={icons[3]} />
-            </div>
-
-            <Card>
-                <CardHeader>
-                    <CardTitle>Recent Tasks</CardTitle>
-                    <CardDescription>The 5 most recently created tasks.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                 <TableHead>SL NO.</TableHead>
-                                 <TableHead>Task ID</TableHead>
-                                <TableHead>Task</TableHead>
-                                 {user.is_master && <TableHead>Employee ID</TableHead>}
-                                {user.is_master && <TableHead>Assigned To (Employee name)</TableHead>}
-                                <TableHead>Status</TableHead>
-                                <TableHead>Created On</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {summary.recentTasks.length > 0 ? (
-                                summary.recentTasks.map((task, i) => (
-                                    <TableRow key={task.id}>
-                                        <TableCell>{i+1}</TableCell>
-                                        <TableCell className="font-medium">{task.id}</TableCell>
-                                        <TableCell >{task.title}</TableCell>
-                                        {user.is_master && <TableCell>{task.EmployeeId || 'N/A'}</TableCell>}
-                                        {user.is_master && <TableCell>{task.Employee?.name || 'N/A'}</TableCell>}
-                                        <TableCell>{getStatusBadge(task.status)}</TableCell>
-                                        <TableCell>{formatDate(task.createdAt)}</TableCell>
-                                    </TableRow>
-                                ))
-                            ) : (
-                                <TableRow>
-                                    <TableCell colSpan={user.is_master ? 4 : 3} className="h-24 text-center">
-                                        No recent tasks found.
-                                    </TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-            </Card>
+      <div className="grid gap-6 md:grid-cols-2">
+        
+        <Card>
+            
+          <CardHeader>
+            <CardTitle>Last 7 Days Performance</CardTitle>
+            <CardDescription>Daily average task rating.</CardDescription>
+          </CardHeader>
+          <CardContent className="pl-2">
+            {loading.charts ? (
+              <div className="h-[350px] flex items-center justify-center">
+                <Spinner />
+              </div>
+            ) : (
+              <PerformanceChart data={weeklyChartData} />
+            )}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Last 12 Months Performance</CardTitle>
+            <CardDescription>Monthly average task rating.</CardDescription>
+          </CardHeader>
+          <CardContent className="pl-2">
+            {loading.charts ? (
+              <div className="h-[350px] flex items-center justify-center">
+                <Spinner />
+              </div>
+            ) : (
+              <PerformanceChart data={monthlyChartData} />
+            )}
+          </CardContent>
+        </Card>
+      </div>
+      {loading.summary ? (
+        <div className="flex justify-center p-8">
+          <Spinner />
         </div>
-    );
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <DashboardCard
+            title={summary.kpi1.title}
+            value={summary.kpi1.value}
+            icon={Users}
+          />
+          <DashboardCard
+            title={summary.kpi2.title}
+            value={summary.kpi2.value}
+            icon={ListChecks}
+          />
+          <DashboardCard
+            title={summary.kpi3.title}
+            value={summary.kpi3.value}
+            icon={Activity}
+          />
+          <DashboardCard
+            title={summary.kpi4.title}
+            value={summary.kpi4.value}
+            icon={Star}
+          />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default DashboardPage;
+
+
+

@@ -33,7 +33,7 @@ const LoginPage = () => {
       setError('Login failed. Please check your credentials.', err);
       toast.error("Authentication failed")
     } finally {
-      setLoading(true);
+      setLoading(false);
     }
   };
 
