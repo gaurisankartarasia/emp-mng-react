@@ -168,7 +168,7 @@ const canUpdate =
                    <Card
   onClick={() => handleSelectEmployee(emp)}
   className={cn(
-    "w-full cursor-pointer hover:bg-muted px-2 py-3 mb-2 shadow-md ",
+    "w-full cursor-pointer bg-background hover:bg-muted px-2 py-3 mb-2 border ",
     selectedEmployee?.id === emp.id && "bg-accent/50 border border-accent"
   )}
 >
@@ -221,7 +221,7 @@ const canUpdate =
                               className="flex items-center space-x-3 p-2 rounded-md hover:bg-accent"
                             >
                               <Checkbox
-                              className="shadow-xl border"
+                              className="shadow-xl border h-8 w-8"
                                 id={`perm-${perm.id}`}
                                 checked={employeePermissionIds.has(perm.id)}
                                 onCheckedChange={(checked) =>

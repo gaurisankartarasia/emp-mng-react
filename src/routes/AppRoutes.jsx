@@ -7,7 +7,7 @@
 // import EmployeeManagementPage from '../pages/EmployeeManagementPage';
 // import UnauthorizedPage from '../pages/UnauthorizedPage';
 // import AddEmployeePage from '../pages/AddEmployeePage';
-// import EditEmployeePage from '../pages/EditEmployeePage'; 
+// import EditEmployeePage from '../pages/EditEmployeePage';
 // import TaskPage from '../pages/TaskPage';
 // import IncrementReportPage from '../pages/IncrementReportPage';
 // import ManagePermissionsPage from '../pages/ManagePermissionsPage';
@@ -17,17 +17,16 @@
 //     <Routes>
 //       <Route path="/login" element={<LoginPage />} />
 //       <Route path="/unauthorized" element={<UnauthorizedPage />} />
-      
-     
-//       <Route 
-//         path="/employees" 
+
+//       <Route
+//         path="/employees"
 //         element={
 //           <ProtectedRoute permission={PERMISSIONS.VIEW_EMPLOYEE_MANAGEMENT}>
 //             <EmployeeManagementPage />
 //           </ProtectedRoute>
-//         } 
+//         }
 //       />
-//        <Route 
+//        <Route
 //         path="/employees/add"
 //         element={
 //           <ProtectedRoute permission={PERMISSIONS.VIEW_EMPLOYEE_MANAGEMENT}>
@@ -35,7 +34,7 @@
 //           </ProtectedRoute>
 //         }
 //       />
-//        <Route 
+//        <Route
 //         path="/employees/:id/edit"
 //         element={
 //           <ProtectedRoute permission={PERMISSIONS.VIEW_EMPLOYEE_MANAGEMENT}>
@@ -44,7 +43,7 @@
 //         }
 //       />
 
-//         <Route 
+//         <Route
 //         path="/tasks"
 //         element={
 //           <ProtectedRoute>
@@ -52,7 +51,7 @@
 //           </ProtectedRoute>
 //         }
 //       />
-//   <Route 
+//   <Route
 //         path="/increment-report"
 //         element={
 //           <ProtectedRoute permission={PERMISSIONS.VIEW_INCREMENT_REPORT}>
@@ -60,7 +59,7 @@
 //           </ProtectedRoute>
 //         }
 //       />
-//  <Route 
+//  <Route
 //         path="/manage-permissions"
 //         element={
 //           <ProtectedRoute permission={PERMISSIONS.MANAGE_EMPLOYEE_PERMISSIONS}>
@@ -68,7 +67,7 @@
 //           </ProtectedRoute>
 //         }
 //       />
-      
+
 //       <Route path="/" element={
 //         <ProtectedRoute>
 //             <DashboardPage />
@@ -81,61 +80,173 @@
 
 // export default AppRoutes;
 
+import { Route, Routes } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
+import { PERMISSIONS } from "../config/permissions";
+import { Layout } from "@/layouts/Layout";
 
-import { Route, Routes } from 'react-router-dom';
-import ProtectedRoute from './ProtectedRoute';
-import { PERMISSIONS } from '../config/permissions';
-import { Layout } from '@/layouts/Layout';
-
-import LoginPage from '../pages/LoginPage';
-import DashboardPage from '../pages/DashboardPage';
-import EmployeeManagementPage from '../pages/EmployeeManagementPage';
-import AddEmployeePage from '../pages/AddEmployeePage';
-import EditEmployeePage from '../pages/EditEmployeePage';
-import TasksPage from '@/pages/TaskPage';
-import IncrementReportPage from '../pages/IncrementReportPage';
-import ManagePermissionsPage from '../pages/ManagePermissionsPage';
-import UnauthorizedPage from '../pages/UnauthorizedPage';
-import AccountDisplayPage from '../pages/AccountPage';
-import AccountEditPage from '../pages/AccountEditPage';
-import AccountSettingsPage from '../pages/AccountSettingsPage';
-import ActivateAccountPage from '@/pages/ActivateAccountPage';
-import PolicyPage from '@/pages/HrPolicyPage';
-import PageNotFound from '@/pages/404/not-found';
+import LoginPage from "../pages/LoginPage";
+import DashboardPage from "../pages/DashboardPage";
+import EmployeeManagementPage from "../pages/EmployeeManagementPage";
+import AddEmployeePage from "../pages/AddEmployeePage";
+import EditEmployeePage from "../pages/EditEmployeePage";
+import TasksPage from "@/pages/TaskPage";
+import IncrementReportPage from "../pages/IncrementReportPage";
+import ManagePermissionsPage from "../pages/ManagePermissionsPage";
+import UnauthorizedPage from "../pages/UnauthorizedPage";
+import AccountDisplayPage from "../pages/AccountPage";
+import AccountEditPage from "../pages/AccountEditPage";
+import AccountSettingsPage from "../pages/AccountSettingsPage";
+import ActivateAccountPage from "@/pages/ActivateAccountPage";
+import PolicyPage from "@/pages/HrPolicyPage";
+import PageNotFound from "@/pages/404/not-found";
+import LeaveManagementAdminPage from '@/pages/LeaveManagementAdminPage';
+import RequestLeavePage from '../pages/leaves/RequestLeavePage';
+import RulesManagerPage from "@/pages/RulesPage";
 
 const ProtectedPage = ({ children, permission }) => (
   <ProtectedRoute permission={permission}>
-    <Layout>
-      {children}
-    </Layout>
+    <Layout>{children}</Layout>
   </ProtectedRoute>
 );
 
 const AppRoutes = () => {
   return (
     <Routes>
-
- <Route path="*" element={<PageNotFound />} />
+      <Route path="*" element={<PageNotFound />} />
 
       <Route path="/login" element={<LoginPage />} />
-           <Route path="/activate-account" element={<ActivateAccountPage />} /> 
+      <Route path="/activate-account" element={<ActivateAccountPage />} />
       <Route path="/unauthorized" element={<UnauthorizedPage />} />
-      
-      <Route path="/" element={<ProtectedPage><DashboardPage /></ProtectedPage>} />
-      <Route path="/dashboard" element={<ProtectedPage><DashboardPage /></ProtectedPage>} />
-      <Route path="/tasks" element={<ProtectedPage><TasksPage /></ProtectedPage>} />
 
-      <Route path="/employees" element={<ProtectedPage permission={PERMISSIONS.VIEW_EMPLOYEE_MANAGEMENT}><EmployeeManagementPage /></ProtectedPage>} />
-      <Route path="/employees/add" element={<ProtectedPage permission={PERMISSIONS.VIEW_EMPLOYEE_MANAGEMENT}><AddEmployeePage /></ProtectedPage>} />
-      <Route path="/employees/:id/edit" element={<ProtectedPage permission={PERMISSIONS.VIEW_EMPLOYEE_MANAGEMENT}><EditEmployeePage /></ProtectedPage>} />
-      <Route path="/hr-policy" element={<ProtectedPage ><PolicyPage /></ProtectedPage>} />
-      <Route path="/increment-report" element={<ProtectedPage permission={PERMISSIONS.VIEW_INCREMENT_REPORT}><IncrementReportPage /></ProtectedPage>} />
-      
-      <Route path="/manage-permissions" element={<ProtectedPage permission={PERMISSIONS.MANAGE_EMPLOYEE_PERMISSIONS}><ManagePermissionsPage /></ProtectedPage>} />
- <Route path="/account" element={<ProtectedPage><AccountDisplayPage /></ProtectedPage>} />
-      <Route path="/account/edit" element={<ProtectedPage><AccountEditPage /></ProtectedPage>} />
-      <Route path="/account/settings" element={<ProtectedPage><AccountSettingsPage /></ProtectedPage>} />
+      <Route
+        path="/"
+        element={
+          <ProtectedPage>
+            <DashboardPage />
+          </ProtectedPage>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedPage>
+            <DashboardPage />
+          </ProtectedPage>
+        }
+      />
+      <Route
+        path="/tasks"
+        element={
+          <ProtectedPage>
+            <TasksPage />
+          </ProtectedPage>
+        }
+      />
+
+      <Route
+        path="/employees"
+        element={
+          <ProtectedPage permission={PERMISSIONS.PAGES.EMPLOYEE_MANAGEMENT}>
+            <EmployeeManagementPage />
+          </ProtectedPage>
+        }
+      />
+      <Route
+        path="/employees/add"
+        element={
+          <ProtectedPage permission={PERMISSIONS.PAGES.EMPLOYEE_MANAGEMENT}>
+            <AddEmployeePage />
+          </ProtectedPage>
+        }
+      />
+      <Route
+        path="/employees/:id/edit"
+        element={
+          <ProtectedPage permission={PERMISSIONS.PAGES.EMPLOYEE_MANAGEMENT}>
+            <EditEmployeePage />
+          </ProtectedPage>
+        }
+      />
+      <Route
+        path="/increment-policy"
+        element={
+          <ProtectedPage>
+            <PolicyPage />
+          </ProtectedPage>
+        }
+      />
+      <Route
+        path="/increment-report"
+        element={
+          <ProtectedPage permission={PERMISSIONS.PAGES.INCREMENT_REPORT}>
+            <IncrementReportPage />
+          </ProtectedPage>
+        }
+      />
+
+      <Route
+        path="/manage-permissions"
+        element={
+          <ProtectedPage permission={PERMISSIONS.PAGES.MANAGE_EMPLOYEE_PERMISSIONS}>
+            <ManagePermissionsPage />
+          </ProtectedPage>
+        }
+      />
+      <Route
+        path="/account"
+        element={
+          <ProtectedPage>
+            <AccountDisplayPage />
+          </ProtectedPage>
+        }
+      />
+      <Route
+        path="/account/edit"
+        element={
+          <ProtectedPage>
+            <AccountEditPage />
+          </ProtectedPage>
+        }
+      />
+      <Route
+        path="/account/settings"
+        element={
+          <ProtectedPage>
+            <AccountSettingsPage />
+          </ProtectedPage>
+        }
+      />
+       <Route
+        path="/request-leave"
+        element={
+          <ProtectedPage >
+            <RequestLeavePage />
+          </ProtectedPage>
+        }
+      />
+       <Route
+        path="/manage-leaves"
+        element={
+          <ProtectedPage permission={PERMISSIONS.PAGES.LEAVE_MANAGEMENT}>
+            <LeaveManagementAdminPage />
+          </ProtectedPage>
+        }
+      />
+  <Route 
+        path="/rules-manager"
+        element={
+            <ProtectedPage permission={PERMISSIONS.PAGES.RULES_MANAGEMENT}>
+                <RulesManagerPage />
+            </ProtectedPage>
+        }
+    />
+
     </Routes>
+
+    
+
+    
   );
 };
 

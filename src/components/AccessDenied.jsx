@@ -13,6 +13,9 @@ export default function AccessDenied() {
           You do not have sufficient permissions. Please contact your administrator.
         </AlertDescription>
       </Alert>
+      <Link to="/" >
+      <Button>Go to home</Button>
+      </Link>
     </div>
   )
 }

@@ -22,9 +22,7 @@ export function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 ">
        <Avatar
-  className={`h-8 w-8 ${
-    user.is_master ? "ring-3 ring-primary ring-offset-3 ring-offset-background" : ""
-  }`}
+  className={`h-8 w-8`}
 >
   <AvatarImage src={user.picture ? `${apiBaseUrl}${user.picture}` : undefined} />
   <AvatarFallback>

@@ -6,6 +6,9 @@ import {
   ListChecks,
   TrendingUp,
   ShieldCheck,
+  CalendarPlus,
+  CalendarRange,
+  ShieldUser
 } from "lucide-react";
 import useAuth from "@/hooks/useAuth";
 import { PERMISSIONS } from "@/config/permissions";
@@ -26,16 +29,34 @@ const navItems = [
     permission: PERMISSIONS.PAGES.INCREMENT_REPORT,
   },
   {
-    href: "/hr-policy",
+    href: "/increment-policy",
     icon: TrendingUp,
-    label: "HR Policy",
-    permission: PERMISSIONS.PAGES.INCREMENT_REPORT,
+    label: "Increment Policy",
+    permission: PERMISSIONS.PAGES.INCREMENT_POLICY,
   },
   {
     href: "/manage-permissions",
-    icon: ShieldCheck,
+    icon: ShieldUser,
     label: "Manage Permissions",
     permission: PERMISSIONS.PAGES.MANAGE_EMPLOYEE_PERMISSIONS,
+  },
+    {
+    href: "/request-leave",
+    icon: CalendarPlus,
+    label: "Request Leave",
+    permission: null,
+  },
+  {
+    href: "/manage-leaves",
+    icon: CalendarRange,
+    label: "Manage Leaves",
+    permission: PERMISSIONS.PAGES.LEAVE_MANAGEMENT,
+  },
+  {
+    href: "/rules-manager",
+    icon: ShieldCheck,
+    label: "Rules",
+    permission: PERMISSIONS.PAGES.LEAVE_MANAGEMENT,
   },
 ];
 
@@ -63,13 +84,14 @@ export function Sidebar() {
               .filter((item) => hasPermission(item.permission))
               .map((item) => (
                 <div key={item.href}>
-                  <div className="border-b border-[#bbbbbb]  dark:border-[#7e7e7e8e]" >
+                  <div>
                     <Link to={item.href} className="my-1 ">
                       <Button
                         variant={pathname === item.href ? "default" : "ghost"}
-                        className="w-full h-12 rounded-sm justify-start"
+                        className="w-full h-12 rounded-full justify-start"
                       >
-                        <item.icon className="mr-2" />
+                        <item.icon  className="mr-2" />
+                        
                         {item.label}
                       </Button>
                     </Link>
@@ -82,3 +104,5 @@ export function Sidebar() {
     </div>
   );
 }
+
+

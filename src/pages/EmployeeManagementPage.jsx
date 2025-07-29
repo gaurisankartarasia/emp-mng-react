@@ -399,7 +399,7 @@ const EmployeeManagementPage = () => {
               <Input
                 type="search"
                 placeholder="Search by Name or Email..."
-                className="w-full pl-8 sm:w-1/3 shadow-xl"
+                className="w-full pl-8 sm:w-1/3"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
