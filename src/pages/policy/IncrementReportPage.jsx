@@ -140,7 +140,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { Terminal, TrendingUp, Search } from "lucide-react";
-import apiClient from '../api/axiosConfig';
+import apiClient from '@/api/axiosConfig';
 import { useDebounce } from "@/hooks/useDebounce";
 import { DataTable } from "@/components/DataTable";
 import { createColumns } from "@/components/increment-report/columns";

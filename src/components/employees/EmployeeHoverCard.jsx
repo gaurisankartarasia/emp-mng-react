@@ -12,7 +12,7 @@ import { calculateExperience } from '@/utils/calculateExperience';
 import { Badge } from '../ui/badge';
 
 const EmployeeHoverCard = ({ employee, children }) => {
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api", "");
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api/v1", "");
 
     const formatCurrency = (amount) => {
         if (!amount) return "N/A";

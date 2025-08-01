@@ -113,8 +113,8 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import apiClient from '../api/axiosConfig';
-import { ImageUploader } from '../components/ImageUploader';
+import apiClient from '@/api/axiosConfig';
+import { ImageUploader } from '@/components/ImageUploader';
 import { toast } from 'sonner';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";

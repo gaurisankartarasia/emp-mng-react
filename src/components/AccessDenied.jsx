@@ -1,6 +1,5 @@
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 import { ShieldAlert } from "lucide-react"
-import { Button } from "./ui/button"
 import { Link } from "react-router-dom"
 
 export default function AccessDenied() {
@@ -11,11 +10,10 @@ export default function AccessDenied() {
         <AlertTitle className="text-destructive">Access Denied</AlertTitle>
         <AlertDescription>
           You do not have sufficient permissions. Please contact your administrator.
+          <Link to="/"  className="text-primary hover:underline" >Return home</Link>
         </AlertDescription>
       </Alert>
-      <Link to="/" >
-      <Button>Go to home</Button>
-      </Link>
+      
     </div>
   )
 }

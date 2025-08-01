@@ -9,12 +9,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-import { ArrowUpDown, MoreHorizontal , CircleUser} from "lucide-react";
+import { ArrowUpDown, MoreHorizontal , CircleUser, Pencil, Trash} from "lucide-react";
 import EmployeeHoverCard from "./EmployeeHoverCard";
 import { Link } from "react-router-dom";
 import { formatDate } from "@/utils/dateFormat";
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api", "");
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api/v1", "");
 
 export const createColumns = ({ openDeleteDialog, canUpdate, canDelete, currentUser }) => [
   {
@@ -97,8 +97,8 @@ export const createColumns = ({ openDeleteDialog, canUpdate, canDelete, currentU
                 <DropdownMenuTrigger asChild><Button variant="ghost" className="h-8 w-8 p-0"><MoreHorizontal className="h-4 w-4" /></Button></DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    {canUpdate && <Link to={`/employees/${employee.id}/edit`}><DropdownMenuItem className="cursor-pointer">Edit Profile</DropdownMenuItem></Link>}
-                    {canDelete && <><DropdownMenuSeparator /><DropdownMenuItem className="text-red-600 cursor-pointer" onClick={() => openDeleteDialog(employee)} disabled={isSelf || employee.is_master}>Delete Employee</DropdownMenuItem></>}
+                    {canUpdate && <Link to={`/employees/${employee.id}/edit`}><DropdownMenuItem className="cursor-pointer"> <Pencil/> Edit</DropdownMenuItem></Link>}
+                    {canDelete && <><DropdownMenuSeparator /><DropdownMenuItem className="text-red-600 cursor-pointer" onClick={() => openDeleteDialog(employee)} disabled={isSelf || employee.is_master}> <Trash className="text-red-600" /> Delete Employee</DropdownMenuItem></>}
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>

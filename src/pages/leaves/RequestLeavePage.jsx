@@ -1,6 +1,6 @@
 
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback , useMemo} from 'react';
 import { toast } from 'sonner';
 
 // --- Services ---
@@ -10,6 +10,7 @@ import { getLeaveConfig, getCalendarData } from '@/services/leave-service';
 import LeaveBalanceIndicator from '@/components/leave/LeaveBalanceIndicator';
 import InteractiveLeaveCalendar from '@/components/leave/InteractiveLeaveCalendar';
 import LeaveSummaryPanel from '@/components/leave/LeaveSummaryPanel';
+import PendingRequestCard from '@/components/leave/PendingRequestCard';
 
 import { Spinner } from '@/components/ui/spinner';
 import {
@@ -17,6 +18,9 @@ import {
   AlertDescription,
   AlertTitle,
 } from "@/components/ui/alert"
+import { Button } from '@/components/ui/button';
+import { RefreshCw, History } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const RequestLeavePage = () => {
     // --- State Management ---
@@ -27,7 +31,6 @@ const RequestLeavePage = () => {
     const [selectedDates, setSelectedDates] = useState({ from: undefined, to: undefined });
 const [formError, setFormError] = useState(null);
 
-    // --- Data Fetching ---
     const fetchData = useCallback(async () => {
         try {
             // No need to set isLoading(true) here; it's set on initial mount
@@ -55,21 +58,30 @@ const [formError, setFormError] = useState(null);
         fetchData();
     }, [fetchData]);
 
+    const pendingRequest = useMemo(() => {
+        return calendarData.existingLeaves.find(leave => leave.status === 'pending');
+    }, [calendarData.existingLeaves]);
+
     if (isLoading) {
         return <div className="flex items-center justify-center h-96"> <Spinner/> </div>;
     }
 
     return (
-        <div className="p-4 lg:p-6 flex flex-col h-full">
+        <div className="flex flex-col h-full">
             <header className="mb-6">
-                <h1 className="text-2xl font-bold tracking-tight">New Leave Request</h1>
+                <h1 className="text-xl font-bold tracking-tight">Leave Request</h1>
                 <p className="text-muted-foreground">Visually select your leave dates below.</p>
+                <Button  onClick={fetchData} className='m-3'  > <RefreshCw/> Refresh</Button>
+               <Link to="history" >  
+                <Button  > <History/> Leaves history</Button></Link>
                 <LeaveBalanceIndicator 
     balanceDetails={balanceData.balanceDetails} 
     unpaidLeaveBalance={balanceData.unpaidLeaveBalance} 
     annualBalance={balanceData.annualBalance}
 />
             </header>
+
+                <PendingRequestCard request={pendingRequest} />
 
             {formError && (
     <div className="mb-4">
@@ -80,14 +92,16 @@ const [formError, setFormError] = useState(null);
     </div>
 )}
 
-            
-            <div className="flex-grow grid grid-cols-1 lg:grid-cols-3 gap-6 min-h-0">
+           {
+            pendingRequest ? null :
+             <div className="flex-grow grid grid-cols-1 lg:grid-cols-3 gap-6 min-h-0">
                 <main className="lg:col-span-2">
                     <InteractiveLeaveCalendar
                         holidays={calendarData.holidays}
                         existingLeaves={calendarData.existingLeaves}
                         selectedDates={selectedDates}
                         setSelectedDates={setSelectedDates}
+                        pendingRequest={pendingRequest}
                     />
                 </main>
 
@@ -105,6 +119,8 @@ const [formError, setFormError] = useState(null);
                     />
                 </aside>
             </div>
+           } 
+           
         </div>
     );
 };

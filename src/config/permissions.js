@@ -24,5 +24,11 @@ export const PERMISSIONS = {
     READ_ALL: "emp-leave-read-all", 
     UPDATE: "emp-leave-update",    
   },
+  RULES_MANAGEMENT:{
+   READ:"rules-read",
+    CREATE: "rules-create",
+    UPDATE: "rules-update",
+    DELETE: "rules-delete",
+  },
   VIEW_ALL_PERFORMANCE_CHART:"dashboard-view-all-performance"
 };

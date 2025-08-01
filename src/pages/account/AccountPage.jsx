@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import apiClient from "../api/axiosConfig";
+import apiClient from "@/api/axiosConfig";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,7 +18,7 @@ import { Spinner } from "@/components/ui/spinner";
 const AccountDisplayPage = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api", "");
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api/v1", "");
 
   useEffect(() => {
     const fetchProfile = async () => {

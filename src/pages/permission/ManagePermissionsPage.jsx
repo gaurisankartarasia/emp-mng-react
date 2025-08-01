@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import apiClient from "../api/axiosConfig";
+import apiClient from "@/api/axiosConfig";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
-import {  Users, Search, RefreshCw, CircleUser, Circle } from "lucide-react";
+import {  Users, Search, RefreshCw, CircleUser } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
@@ -31,7 +31,7 @@ const ManagePermissionsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api", "");
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api/v1", "");
 
  const canRead =
   user?.is_master ||
@@ -151,7 +151,7 @@ const canUpdate =
                   <Users className="mr-2 h-5 w-5" /> Employees
                 </CardTitle>
                 <div className="relative mt-2">
-                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Search className="absolute left-2.5 top-2.5 h-7 w-5 text-muted-foreground" />
                   <Input
                     type="search"
                     placeholder="Search employees..."
@@ -162,7 +162,7 @@ const canUpdate =
                 </div>
               </CardHeader>
               <CardContent>
-                <ScrollArea className="h-[660px] px-5">
+                <ScrollArea className="h-[650px] px-4">
                   {employees.map((emp) => (
                     <div key={emp.id}>
                    <Card

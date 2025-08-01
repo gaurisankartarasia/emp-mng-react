@@ -41,7 +41,7 @@
 //   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 //   const [employeeToDelete, setEmployeeToDelete] = useState(null);
 //   const { user } = useAuth();
-//   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api", "");
+//   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api/v1", "");
 //   const [searchTerm, setSearchTerm] = useState("");
 //   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
@@ -286,8 +286,8 @@
 
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
-import apiClient from "../api/axiosConfig";
-import useAuth from "../hooks/useAuth";
+import apiClient from "@/api/axiosConfig";
+import useAuth from "@/hooks/useAuth";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -303,8 +303,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { Plus, Terminal, Search, X } from "lucide-react";
-import { PERMISSIONS } from "../config/permissions";
+import { Plus, Terminal, Search } from "lucide-react";
+import { PERMISSIONS } from "@/config/permissions";
 import AccessDenied from "@/components/AccessDenied";
 import { Spinner } from "@/components/ui/spinner";
 import { createColumns } from "@/components/employees/columns";
@@ -395,7 +395,7 @@ const EmployeeManagementPage = () => {
           <CardHeader>
             <CardTitle>All Employees</CardTitle>
             <div className="relative mt-2">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-2.5 top-2.5 h-7 w-4 text-muted-foreground" />
               <Input
                 type="search"
                 placeholder="Search by Name or Email..."

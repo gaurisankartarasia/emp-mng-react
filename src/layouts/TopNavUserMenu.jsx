@@ -14,8 +14,8 @@ import { Link } from "react-router-dom";
 import { CircleUser, Settings, LogOut } from "lucide-react";
 
 export function UserNav() {
-  const { user, logout } = useAuth();
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api", "");
+  const { user } = useAuth();
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api/v1", "");
 
   return (
     <DropdownMenu>
@@ -49,9 +49,9 @@ export function UserNav() {
           </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={logout} className="cursor-pointer">
-         <LogOut/> Log out
-        </DropdownMenuItem>
+          <Link to="/signout">
+            <DropdownMenuItem className="cursor-pointer"><LogOut/>Signout</DropdownMenuItem>
+          </Link>
       </DropdownMenuContent>
     </DropdownMenu>
   );

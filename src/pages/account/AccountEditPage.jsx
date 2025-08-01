@@ -1,7 +1,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import apiClient from '../api/axiosConfig';
+import apiClient from '@/api/axiosConfig';
 import { toast } from 'sonner';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import {  Save, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { ImageUploader } from '../components/ImageUploader';
+import { ImageUploader } from '@/components/ImageUploader';
 import { Spinner } from '@/components/ui/spinner';
 
 const AccountEditPage = () => {

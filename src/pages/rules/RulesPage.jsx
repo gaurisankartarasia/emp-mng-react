@@ -7,23 +7,30 @@ import { getLeaveTypes, getCompanyRules } from '@/services/rules-service';
 // UI Components
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Spinner } from '@/components/ui/spinner'; // Assuming you have a spinner component
+import { Spinner } from '@/components/ui/spinner';
 
 // Child Management Components
 import LeaveTypesManager from '@/components/rules/LeaveTypesManager';
 import CompanyRulesManager from '@/components/rules/RulesManager';
+import useAuth from '@/hooks/useAuth';
+import { PERMISSIONS } from '@/config/permissions';
+import AccessDenied from '@/components/AccessDenied';
 
 const RulesManagerPage = () => {
     const [leaveTypes, setLeaveTypes] = useState([]);
     const [companyRules, setCompanyRules] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const{user} = useAuth()
+
+    const canViewPage = user.is_master || user.permissions.includes(PERMISSIONS.PAGES.RULES_MANAGEMENT)
+
 
     const fetchData = useCallback(async () => {
         try {
             // Fetch both sets of data in parallel for efficiency
             const [leaveTypesData, companyRulesData] = await Promise.all([
                 getLeaveTypes(),
-                getCompanyRules(),
+                getCompanyRules()
             ]);
             setLeaveTypes(leaveTypesData);
             setCompanyRules(companyRulesData);
@@ -34,23 +41,26 @@ const RulesManagerPage = () => {
         }
     }, []);
 
+    
     useEffect(() => {
         fetchData();
     }, [fetchData]);
+    if(!canViewPage) return <AccessDenied/>
+
 
     if (isLoading) {
         return <div className="flex items-center justify-center h-96"><Spinner /></div>;
     }
 
     return (
-        <div className="p-4 lg:p-6">
+        <div>
             <header className="mb-6">
-                <h1 className="text-2xl font-bold tracking-tight">System Settings</h1>
+                <h1 className="text-2xl font-bold tracking-tight">Rules</h1>
                 <p className="text-muted-foreground">Manage global rules and leave policies for the entire organization.</p>
             </header>
 
             <Tabs defaultValue="leave-types" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
+                <TabsList className="grid w-fit grid-cols-2">
                     <TabsTrigger value="leave-types">Leave Types</TabsTrigger>
                     <TabsTrigger value="company-rules">Company Rules</TabsTrigger>
                 </TabsList>
@@ -72,6 +82,7 @@ const RulesManagerPage = () => {
                 <TabsContent value="company-rules">
                     <CompanyRulesManager rules={companyRules} onDataChange={fetchData} />
                 </TabsContent>
+
             </Tabs>
         </div>
     );

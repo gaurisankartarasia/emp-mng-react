@@ -47,9 +47,10 @@ export const createSplitLeaveRequest = async (proposalData) => {
     }
 };
 
-export const getMyLeaveRequests = async () => {
+export const getMyLeaveRequests = async (params) => {
     try {
-        const { data } = await apiClient.get('/leave/my-requests');
+        const queryParams = new URLSearchParams(params).toString();
+        const { data } = await apiClient.get(`/leave/my-requests?${queryParams}`);
         return data;
     } catch (error) {
         throw new Error(error.response?.data?.message || 'Failed to fetch your leave requests');

@@ -77,7 +77,7 @@ body {
   --muted-foreground: #44474e;  /* mat-sys-on-surface-variant */
   
   /* Accent colors - matching secondary for consistency */
-  --accent: #e9e7eb;  /* mat-sys-surface-container-high */
+  --accent: #d5d4d6;  /* mat-sys-surface-container-high */
   --accent-foreground: #1a1b1f;  /* mat-sys-on-surface */
   
   /* Destructive colors - using Material Design error */
@@ -152,4 +152,19 @@ body {
 
       }
 
+}
+
+
+
+@keyframes scrollDownOpen {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.6);
+    transform-origin: top;
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: top;
+  }
 }

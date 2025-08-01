@@ -7,7 +7,17 @@ function App() {
   return (
     <>
       <AppRoutes />
-      <Toaster position='top-center' closeButton richColors/>
+      <Toaster  position='top-center' toastOptions={{
+    style: {
+      background: 'var(--popover)',
+      boxShadow:"none",
+      borderRadius:'var(--radius)'
+    }
+  }}
+  
+   expand visibleToasts={3}
+   
+  />
     </>
   );
 }

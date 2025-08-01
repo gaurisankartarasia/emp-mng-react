@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { RefreshCw } from 'lucide-react';
+
 import { getManagedLeaveRequests } from '@/services/leave-service';
 
 import LeaveRequestTable from '@/components/leave/LeaveRequestTable';
@@ -56,13 +58,17 @@ const LeaveManagementAdminPage = () => {
     return (
         <>
             <Card className="m-4">
+            
                 <CardHeader>
                     <CardTitle>Leave Management</CardTitle>
                     <CardDescription>
                         View and manage all employee leave requests.
                     </CardDescription>
+                  
                 </CardHeader>
+                
                 <CardContent>
+                      <Button onClick={fetchData} className="m-3 float-end" > <RefreshCw/> Refresh</Button>
                     {isLoading ? (
                         <p className="text-center">Loading requests...</p>
                     ) : (
@@ -72,6 +78,7 @@ const LeaveManagementAdminPage = () => {
                             actionSlot={renderActionSlot} 
                         />
                     )}
+                    
                 </CardContent>
             </Card>
 

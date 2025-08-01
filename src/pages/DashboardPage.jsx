@@ -268,12 +268,12 @@
 
 
 import React, { useState, useEffect, useCallback } from "react";
-import apiClient from "../api/axiosConfig";
-import useAuth from "../hooks/useAuth";
+import apiClient from "@/api/axiosConfig";
+import useAuth from "@/hooks/useAuth";
 import { DashboardCard } from "@/components/dashboard/DashboardCard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
-import { Users, ListChecks, Activity, Star } from "lucide-react";
+import { Users, ListChecks, Activity, Star, User } from "lucide-react";
 import PerformanceChart from "@/components/dashboard/PerformanceChart";
 import { PERMISSIONS } from "../config/permissions";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -330,8 +330,8 @@ const DashboardPage = () => {
             <Select value={performanceView} onValueChange={setPerformanceView}>
               <SelectTrigger id="view-mode" className="w-[150px]"><SelectValue placeholder="Select view" /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="self">Personal</SelectItem>
-                <SelectItem value="all">All Employees</SelectItem>
+                <SelectItem value="self"> <User/> Personal</SelectItem>
+                <SelectItem value="all"> <Users/> All Employees</SelectItem>
               </SelectContent>
             </Select>
           </div>

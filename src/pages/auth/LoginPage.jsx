@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useAuth from '../hooks/useAuth';
+import useAuth from '@/hooks/useAuth';
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from 'sonner';
 import { Spinner } from '@/components/ui/spinner';
+import { LogIn } from 'lucide-react';
 
 
 
@@ -41,12 +42,12 @@ const LoginPage = () => {
 
   return (
     <div className="flex items-center justify-center h-[700px] ">
-      <Card className="w-full max-w-sm">
+      <Card className="w-full max-w-md ">
         <form onSubmit={handleSubmit}>
           <CardHeader>
             <CardTitle className="text-xl">Authentication</CardTitle>
             <CardDescription className="mb-3" >
-              Enter your email or phone below to login to your account.
+              Enter your email, phone or employee id below to login to your account.
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
@@ -76,6 +77,7 @@ const LoginPage = () => {
           <CardFooter className="mt-4" >
             <Button type="submit" className="w-full" disabled={loading}>
               {loading && <Spinner color='white' size={20} />}
+              <LogIn/>
               Sign in
             </Button>
           </CardFooter>
@@ -86,3 +88,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
