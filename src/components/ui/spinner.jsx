@@ -38,4 +38,3 @@ export const Spinner = ({ size = 40, color = 'var(--primary)' }) => {
     </>
   );
 };
-

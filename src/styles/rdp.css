@@ -3,7 +3,7 @@
   --rdp-accent-color: var(--primary); /* The accent color used for selected days and UI elements. */
   --rdp-accent-background-color: var(--input); /* The accent background color used for selected days and UI elements. */
 
-  --rdp-day-height: 50px; /* The height of the day cells. */
+  --rdp-day-height: 45px; /* The height of the day cells. */
   --rdp-day-width: 70px; /* The width of the day cells. */
 
   --rdp-day_button-border-radius: var(--radius); /* The border radius of the day cells. */

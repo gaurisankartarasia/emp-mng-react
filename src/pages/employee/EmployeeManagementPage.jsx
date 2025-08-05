@@ -310,6 +310,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { createColumns } from "@/components/employees/columns";
 import { DataTable } from "@/components/DataTable";
 import { useDebounce } from "@/hooks/useDebounce"; 
+import { useT } from "@/hooks/useT";
 
 const EmployeeManagementPage = () => {
   const [data, setData] = useState([]);
@@ -378,8 +379,9 @@ const EmployeeManagementPage = () => {
       setEmployeeToDelete(null);
     }
   };
-  
-  const columns = useMemo(() => createColumns({ openDeleteDialog, canUpdate, canDelete, currentUser: user }), [canUpdate, canDelete, user]);
+  const t = useT();
+
+  const columns = useMemo(() => createColumns({ openDeleteDialog, canUpdate, canDelete, currentUser: user, t }), [canUpdate, canDelete, user, t]);
 
   if (!canRead) return <AccessDenied />;
 

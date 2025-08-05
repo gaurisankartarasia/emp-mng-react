@@ -15,9 +15,6 @@ import { toast } from 'sonner';
 import { Spinner } from '@/components/ui/spinner';
 import { LogIn } from 'lucide-react';
 
-
-
-
 const LoginPage = () => {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
@@ -78,7 +75,7 @@ const LoginPage = () => {
             <Button type="submit" className="w-full" disabled={loading}>
               {loading && <Spinner color='white' size={20} />}
               <LogIn/>
-              Sign in
+              Authenticate
             </Button>
           </CardFooter>
         </form>

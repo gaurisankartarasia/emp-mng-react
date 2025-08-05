@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { format, differenceInCalendarDays } from 'date-fns';
 import { PERMISSIONS } from "@/config/permissions";
 import useAuth from "@/hooks/useAuth";
+import { useT } from "@/hooks/useT";
 
 const LeaveRequestTable = ({ requests, showEmployeeColumn = false, actionSlot }) => {
     const getStatusVariant = (status) => {
@@ -26,6 +27,7 @@ const LeaveRequestTable = ({ requests, showEmployeeColumn = false, actionSlot })
     };
     
     const { user } = useAuth();
+    const t = useT()
 
     const canManage = user.is_master || user.permissions.includes(PERMISSIONS.LEAVE_MANAGEMENT.UPDATE);
 
@@ -34,18 +36,18 @@ const LeaveRequestTable = ({ requests, showEmployeeColumn = false, actionSlot })
             <Table>
                 <TableHeader>
                     <TableRow>
-                         <TableHead>SL NO</TableHead>
-                         <TableHead>Application ID</TableHead>
-                        {showEmployeeColumn && <TableHead>Employee ID</TableHead>}
-                        {showEmployeeColumn && <TableHead>Employee</TableHead>}
-                        <TableHead>Leave Type</TableHead>
-                        <TableHead>Dates</TableHead>
-                        <TableHead>Days</TableHead>
-                        <TableHead>Status</TableHead>
-                         <TableHead>Batch ID</TableHead>
-                        <TableHead>Reason</TableHead>
-                         <TableHead>Comments</TableHead>
-                        {canManage && <TableHead className="text-center">Actions</TableHead>}
+                         <TableHead> {t('sl-no')} </TableHead>
+                         <TableHead>{t('application-id')} </TableHead>
+                        {showEmployeeColumn && <TableHead>{t('employee-id')} </TableHead>}
+                        {showEmployeeColumn && <TableHead>{t('employee')} </TableHead>}
+                        <TableHead>{t('leave-type')}</TableHead>
+                        <TableHead>{t('dates')}</TableHead>
+                        <TableHead>{t('days')}</TableHead>
+                        <TableHead>{t('status')}</TableHead>
+                         <TableHead>{t('batch-id')}</TableHead>
+                        <TableHead>{t('reason')}</TableHead>
+                         <TableHead>{t('comments')}</TableHead>
+                        {canManage && <TableHead className="text-center">{t('actions')}</TableHead>}
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -82,7 +84,7 @@ const LeaveRequestTable = ({ requests, showEmployeeColumn = false, actionSlot })
                     ) : (
                         <TableRow>
                             <TableCell colSpan={canManage ? (showEmployeeColumn ? 9 : 5) : (showEmployeeColumn ? 5 : 4)} className="h-24 text-center">
-                                No leave requests found.
+                                {t('no-leave-requests-found')}
                             </TableCell>
                         </TableRow>
                     )}

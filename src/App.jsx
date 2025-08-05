@@ -9,6 +9,7 @@ function App() {
       <AppRoutes />
       <Toaster  position='top-center' toastOptions={{
     style: {
+      color:'var(--popover-foreground)',
       background: 'var(--popover)',
       boxShadow:"none",
       borderRadius:'var(--radius)'

@@ -2,10 +2,12 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { navItems } from "@/config/nav-config";
 import useAuth from "@/hooks/useAuth";
+import { useT } from "@/hooks/useT";
 
 export function Sidebar() {
   const { pathname } = useLocation();
   const { user } = useAuth();
+  const t = useT()
 
   const hasPermission = (permission) => {
     if (!permission) return true;
@@ -39,7 +41,7 @@ export function Sidebar() {
                       >
                         <item.icon className="mx-2" />
 
-                        {item.label}
+                        {t(`${item.label}`)}
                       </Button>
                     </Link>
                   </div>

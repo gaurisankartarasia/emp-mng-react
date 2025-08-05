@@ -326,7 +326,7 @@ const LeaveSummaryPanel = ({ selectedDates, leaveTypes, onFormSubmit,  onError }
             primary: splitInfo.proposal.primary,
             secondary: {
                 ...splitInfo.proposal.secondary,
-                leave_type_id: secondaryLeaveTypeId // Add the user's choice
+                leave_type_id: secondaryLeaveTypeId 
             },
             reason: form.getValues('reason') || ""
         };

@@ -214,14 +214,14 @@ const canUpdate =
                   ) : (
                     <>
                       <ScrollArea className="h-[40rem]">
-                        <div className="space-y-4 p-1">
+                        <div className="space-y-4 py-1 px-5">
                           {allPermissions.map((perm) => (
                             <div
                               key={perm.id}
-                              className="flex items-center space-x-3 p-2 rounded-md hover:bg-accent"
+                              className="flex items-center space-x-3 px-8 py-2 bg-white rounded-md"
                             >
                               <Checkbox
-                              className="shadow-xl border h-8 w-8"
+                              className="shadow-xl bg-input h-8 w-8"
                                 id={`perm-${perm.id}`}
                                 checked={employeePermissionIds.has(perm.id)}
                                 onCheckedChange={(checked) =>

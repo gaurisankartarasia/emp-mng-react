@@ -7,10 +7,10 @@ const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'INR' }).format(amount);
 };
 
-export const createColumns = () => [
+export const createColumns = (t) => [
   {
     id: "sl_no",
-    header: "SL",
+    header: t('sl-no'),
     cell: ({ row, table }) => {
       const { pageIndex, pageSize } = table.getState().pagination;
       return pageIndex * pageSize + row.index + 1;
@@ -18,25 +18,25 @@ export const createColumns = () => [
   },
   {
 accessorKey:'id',
-header:'Emp ID'
+header:t('emp-id')
   },
   {
     accessorKey: "name",
     header: ({ column }) => (
       <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-        Employee <ArrowUpDown className="ml-2 h-4 w-4" />
+        {t('employee')} <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
   },
   {
     accessorKey: "days_of_service",
-    header: "Service Days",
+    header: t('service-days'),
   },
   {
     accessorKey: "average_rating",
     header: ({ column }) => (
       <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-        Avg. Rating <ArrowUpDown className="ml-2 h-4 w-4" />
+        {t('avg-rating')} <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
     cell: ({ row }) => row.original.average_rating || "N/A",
@@ -45,14 +45,14 @@ header:'Emp ID'
     accessorKey: "current_salary",
     header: ({ column }) => (
       <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-        Current Salary <ArrowUpDown className="ml-2 h-4 w-4" />
+        {t('current-salary')} <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
     cell: ({ row }) => formatCurrency(row.original.current_salary),
   },
   {
     accessorKey: "is_eligible",
-    header: "Eligible",
+    header: t('eligible'),
     cell: ({ row }) => (
       <Badge variant={row.original.is_eligible ? "default" : "secondary"} className={row.original.is_eligible ? "bg-green-600" : ""}>
         {row.original.is_eligible ? 'Yes' : 'No'}
@@ -61,12 +61,12 @@ header:'Emp ID'
   },
   {
     accessorKey: "increment_percentage",
-    header: "Increment %",
+    header: `${t('increment')} %`,
     cell: ({ row }) => `${row.original.increment_percentage}%`,
   },
   {
     accessorKey: "new_salary",
-    header: "New Salary",
+    header: t('new-salary'),
     cell: ({ row }) => formatCurrency(row.original.new_salary),
   },
 ];

@@ -2,10 +2,12 @@ import React, { useState, useRef } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { X, Upload } from "lucide-react";
+import { useT } from '@/hooks/useT';
 
 export const ImageUploader = ({ defaultImage, onFileSelect }) => {
     const [preview, setPreview] = useState(defaultImage);
     const fileInputRef = useRef(null);
+    const t = useT()
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -42,11 +44,11 @@ export const ImageUploader = ({ defaultImage, onFileSelect }) => {
                     className="hidden"
                 />
                 <Button type="button" onClick={() => fileInputRef.current.click()}>
-                    <Upload /> Change Picture
+                    <Upload /> {t('change-picture')}
                 </Button>
                 {preview && (
                     <Button type="button" variant="ghost" onClick={handleRemoveImage}>
-                        <X /> Remove
+                        <X /> {t('remove')}
                     </Button>
                 )}
             </div>

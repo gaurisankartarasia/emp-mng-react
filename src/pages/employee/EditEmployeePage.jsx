@@ -112,7 +112,7 @@ const EditEmployeePage = () => {
     const [pictureFile, setPictureFile] = useState(null);
      const [shouldRemovePicture, setShouldRemovePicture] = useState(false);
     const [loading, setLoading] = useState({ page: true, saving: false });
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace('/api', '');
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace('/api/v1', '');
 
     useEffect(() => {
         const fetchEmployee = async () => {

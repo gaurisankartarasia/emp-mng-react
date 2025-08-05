@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import {ArrowRight, ArrowLeft} from 'lucide-react'
+import { useT } from "@/hooks/useT";
 
 export function DataTable({
   columns,
@@ -38,6 +39,7 @@ export function DataTable({
     manualPagination: true,
     manualSorting: true, 
   });
+  const t = useT()
 
   return (
     <div>
@@ -78,9 +80,9 @@ export function DataTable({
             </Table>
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
-            <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}> <ArrowLeft/> Previous</Button>
+            <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}> <ArrowLeft/> {  t('previous')}</Button>
                  
-            <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>Next <ArrowRight/> </Button>
+            <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>{  t('next')} <ArrowRight/> </Button>
         </div>
     </div>
   );

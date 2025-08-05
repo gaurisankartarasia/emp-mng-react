@@ -10,50 +10,51 @@ import {
 } from "lucide-react";
 import { PERMISSIONS } from "@/config/permissions";
 
+
 export const navItems = [
-  { href: "/", icon: LayoutDashboard, label: "Dashboard", permission: null },
+  { href: "/", icon: LayoutDashboard, label: "dashboard", permission: null },
   {
     href: "/employees",
     icon: Users,
-    label: "Employees",
+    label: "employees",
     permission: PERMISSIONS.PAGES.EMPLOYEE_MANAGEMENT,
   },
-  { href: "/tasks", icon: ListChecks, label: "Tasks", permission: null },
+  { href: "/tasks", icon: ListChecks, label: "tasks", permission: null },
   {
     href: "/increment-report",
     icon: TrendingUp,
-    label: "Increment Report",
+    label: "increment-report",
     permission: PERMISSIONS.PAGES.INCREMENT_REPORT,
   },
   {
     href: "/increment-policy",
     icon: TrendingUp,
-    label: "Increment Policy",
+    label: "increment-policy",
     permission: PERMISSIONS.PAGES.INCREMENT_POLICY,
   },
   {
     href: "/manage-permissions",
     icon: ShieldUser,
-    label: "Manage Permissions",
+    label: "manage-permissions",
     permission: PERMISSIONS.PAGES.MANAGE_EMPLOYEE_PERMISSIONS,
   },
     {
     href: "/request-leave",
     icon: CalendarPlus,
-    label: "Request Leave",
+    label: "request-leave",
     permission: null,
   },
   {
     href: "/manage-leaves",
     icon: CalendarRange,
-    label: "Manage Leaves",
+    label: "manage-leaves",
     permission: PERMISSIONS.PAGES.LEAVE_MANAGEMENT,
   },
     
   {
     href: "/rules-manager",
     icon: ShieldCheck,
-    label: "Rules",
+    label: "rules",
     permission: PERMISSIONS.PAGES.RULES_MANAGEMENT,
   },
 ];

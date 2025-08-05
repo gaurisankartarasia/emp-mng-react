@@ -144,6 +144,7 @@ import apiClient from '@/api/axiosConfig';
 import { useDebounce } from "@/hooks/useDebounce";
 import { DataTable } from "@/components/DataTable";
 import { createColumns } from "@/components/increment-report/columns";
+import { useT } from '@/hooks/useT';
 
 const IncrementReportPage = () => {
     const [data, setData] = useState([]);
@@ -154,6 +155,7 @@ const IncrementReportPage = () => {
     const debouncedSearchTerm = useDebounce(searchTerm, 500);
     const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
     const [sorting, setSorting] = useState([{ id: 'average_rating', desc: true }]);
+    const t = useT()
 
     const fetchData = useCallback(async () => {
         try {
@@ -182,7 +184,7 @@ const IncrementReportPage = () => {
         fetchData();
     }, [fetchData]);
 
-    const columns = useMemo(() => createColumns(), []);
+    const columns = useMemo(() => createColumns(t), [t]);
 
     return (
         <div className="container mx-auto">

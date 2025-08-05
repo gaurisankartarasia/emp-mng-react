@@ -234,7 +234,7 @@
 //         <Card>
 //           <CardHeader>
 //             <CardTitle>Last 7 Days Performance</CardTitle>
-//             <CardDescription>{performanceView === 'all' && canViewAllPerformance ? 'Team performance overview.' : 'Your daily average rating.'}</CardDescription>
+//             <CardDescription>{performanceView === 'all' && canViewAllPerformance ? {t('team-performance-overview)} : 'Your daily average rating.'}</CardDescription>
 //           </CardHeader>
 //           <CardContent className="pl-2">
 //             {loading.charts ? <div className="h-[350px] flex items-center justify-center"><Spinner /></div> : <ChartComponent data={weeklyChartData} />}
@@ -243,7 +243,7 @@
 //         <Card>
 //           <CardHeader>
 //             <CardTitle>Last 30 Days Performance</CardTitle>
-//             <CardDescription>{performanceView === 'all' && canViewAllPerformance ? 'Team performance overview.' : 'Your monthly average rating.'}</CardDescription>
+//             <CardDescription>{performanceView === 'all' && canViewAllPerformance ? {t('team-performance-overview)} : 'Your monthly average rating.'}</CardDescription>
 //           </CardHeader>
 //           <CardContent className="pl-2">
 //             {loading.charts ? <div className="h-[350px] flex items-center justify-center"><Spinner /></div> : <ChartComponent data={monthlyChartData} />}
@@ -277,6 +277,7 @@ import { Users, ListChecks, Activity, Star, User } from "lucide-react";
 import PerformanceChart from "@/components/dashboard/PerformanceChart";
 import { PERMISSIONS } from "../config/permissions";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useT } from "@/hooks/useT";
 
 const DashboardPage = () => {
   const [summary, setSummary] = useState(null);
@@ -287,6 +288,7 @@ const DashboardPage = () => {
   const [performanceView, setPerformanceView] = useState("all");   
   const [loading, setLoading] = useState({ summary: true, charts: true });
   const { user } = useAuth();
+  const t = useT()
 
   const canViewAllPerformance = user.is_master || user.permissions.includes(PERMISSIONS.VIEW_ALL_PERFORMANCE_CHART);
 
@@ -328,10 +330,10 @@ const DashboardPage = () => {
         {canViewAllPerformance && (
           <div className="flex items-center space-x-2 mt-4 sm:mt-0">
             <Select value={performanceView} onValueChange={setPerformanceView}>
-              <SelectTrigger id="view-mode" className="w-[150px]"><SelectValue placeholder="Select view" /></SelectTrigger>
+              <SelectTrigger id="view-mode" className="w-fit"><SelectValue placeholder="Select view" /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="self"> <User/> Personal</SelectItem>
-                <SelectItem value="all"> <Users/> All Employees</SelectItem>
+                <SelectItem value="self"> <User/> {t('personal')}</SelectItem>
+                <SelectItem value="all"> <Users /> { t('all-employees')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -341,8 +343,8 @@ const DashboardPage = () => {
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Last 7 Days Performance</CardTitle>
-            <CardDescription>{performanceView === 'all' && canViewAllPerformance ? 'Team performance overview.' : 'Your daily average rating.'}</CardDescription>
+            <CardTitle>{ t('last-7-days-performance')}</CardTitle>
+            <CardDescription>{performanceView === 'all' && canViewAllPerformance ? t('team-performance-overview') : 'Your daily average rating.'}</CardDescription>
           </CardHeader>
           <CardContent className="pl-2">
             {loading.charts ? <div className="h-[350px] flex items-center justify-center"><Spinner /></div> : <PerformanceChart data={weeklyChartData} employees={weeklyEmployees} viewType={performanceView} />}
@@ -351,7 +353,7 @@ const DashboardPage = () => {
         <Card>
           <CardHeader>
             <CardTitle>Last 12 Months Performance</CardTitle>
-            <CardDescription>{performanceView === 'all' && canViewAllPerformance ? 'Team performance overview.' : 'Your monthly average rating.'}</CardDescription>
+            <CardDescription>{performanceView === 'all' && canViewAllPerformance ? t('team-performance-overview') : 'Your monthly average rating.'}</CardDescription>
           </CardHeader>
           <CardContent className="pl-2">
             {loading.charts ? <div className="h-[350px] flex items-center justify-center"><Spinner /></div> : <PerformanceChart data={monthlyChartData} employees={monthlyEmployees} viewType={performanceView} />}
