@@ -1,4 +1,4 @@
-// src/components/Globewitcher.jsx
+// src/components/LanguageSwitcher.jsx
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -9,13 +9,15 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Globe } from 'lucide-react';
+import { toast } from 'sonner';
 
-const Globewitcher = () => {
+const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
   const currentLang = i18n.language || 'en';
 
   const handleLanguageChange = (lang) => {
     i18n.changeLanguage(lang);
+    toast.success(`Language changed successfully to ${lang}`)
   };
 
   return (
@@ -41,4 +43,4 @@ const Globewitcher = () => {
   );
 };
 
-export default Globewitcher;
+export default LanguageSwitcher;

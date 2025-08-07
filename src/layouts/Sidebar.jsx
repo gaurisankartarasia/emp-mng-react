@@ -34,7 +34,7 @@ export function Sidebar() {
                       <Button
                         variant={
     pathname === item.href || pathname.startsWith(item.href + "/")
-      ? "default"
+      ? "secondary"
       : "ghost"
   }
                         className="w-full h-10 my-1 rounded-full justify-start"

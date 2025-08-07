@@ -79,7 +79,7 @@ const LeaveTypesManager = ({ leaveTypes, onDataChange }) => {
       "annual_allowance_days",
       "monthly_allowance_days",
       "max_days_per_request",
-      "fallback_leave_type_id",
+      // "fallback_leave_type_id",
     ];
     numericFields.forEach((field) => {
       const value = data[field];
@@ -253,7 +253,7 @@ const LeaveTypesManager = ({ leaveTypes, onDataChange }) => {
             </div>
 
             
-
+{/* 
             <div>
               <Label>Fallback Leave Type (When balance is exhausted)</Label>
               <Controller
@@ -268,7 +268,6 @@ const LeaveTypesManager = ({ leaveTypes, onDataChange }) => {
                       <SelectValue placeholder="Select a fallback type..." />
                     </SelectTrigger>
                     <SelectContent>
-                      {/* **CRITICAL FIX:** Use a non-empty string value */}
                       <SelectItem value="null">None</SelectItem>
                       {leaveTypes
                         .filter((lt) => lt.id !== selectedLeaveType?.id)
@@ -281,7 +280,7 @@ const LeaveTypesManager = ({ leaveTypes, onDataChange }) => {
                   </Select>
                 )}
               />
-            </div>
+            </div> */}
             <DialogFooter>
               <Button
                 type="button"

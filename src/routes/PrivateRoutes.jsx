@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import { PERMISSIONS } from "../config/permissions";
 import { Layout } from "@/layouts/Layout";
-
 import DashboardPage from "../pages/DashboardPage";
 import EmployeeManagementPage from "../pages/employee/EmployeeManagementPage";
 import AddEmployeePage from "../pages/employee/AddEmployeePage";
@@ -20,6 +19,7 @@ import RequestLeavePage from "../pages/leaves/RequestLeavePage";
 import RulesManagerPage from "@/pages/rules/RulesPage";
 import MyLeaveHistoryPage from "@/pages/leaves/MyLeaveHistoryPage";
 import SignOutPage from "@/pages/auth/SignOutPage";
+import PayrollPage from "@/pages/payroll/PayrollPage";
 
 const ProtectedPage = ({ children, permission }) => (
   <ProtectedRoute permission={permission}>
@@ -30,7 +30,7 @@ const ProtectedPage = ({ children, permission }) => (
 const PrivateRoutes = () => {
   return (
       <Routes>
-        <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        <Route path="/unauthorized" element={<ProtectedPage><UnauthorizedPage /></ProtectedPage>} />
         <Route path="/signout" element={<SignOutPage />} />
         <Route
           path="/"
@@ -164,6 +164,15 @@ const PrivateRoutes = () => {
             </ProtectedPage>
           }
         />
+        <Route 
+    path="/payroll"
+    element={
+        <ProtectedPage permission={PERMISSIONS.PAGES.PAYROLL_MANAGEMENT}>
+            <PayrollPage />
+        </ProtectedPage>
+    }
+/>
+ 
       </Routes>
   );
 };

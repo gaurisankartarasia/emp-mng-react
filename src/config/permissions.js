@@ -6,6 +6,7 @@ export const PERMISSIONS = {
     INCREMENT_POLICY:"page-increment-policy",
     LEAVE_MANAGEMENT: "page-leave-management", 
     RULES_MANAGEMENT: "page-rules-management",
+    PAYROLL_MANAGEMENT: "page-payroll-management"
   },
   EMPLOYEE: {
     READ: "emp-read",
@@ -30,5 +31,9 @@ export const PERMISSIONS = {
     UPDATE: "rules-update",
     DELETE: "rules-delete",
   },
-  VIEW_ALL_PERFORMANCE_CHART:"dashboard-view-all-performance"
+  VIEW_ALL_PERFORMANCE_CHART:"dashboard-view-all-performance",
+  PAYROLL: {
+    CALCULATE_SALARY: "payroll-calculate",
+    GENERATE_REPORT: "payroll-generate-report",
+  },
 };

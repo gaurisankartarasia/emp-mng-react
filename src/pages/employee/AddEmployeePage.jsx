@@ -172,7 +172,7 @@ const AddEmployeePage = () => {
   return (
     <div className="container mx-auto max-w-4xl py-6">
       <form onSubmit={handleSubmit}>
-        <Card className="border-none shadow-none" >
+        <Card >
           <CardHeader>
             <CardTitle>Invite New Employee</CardTitle>
             <CardDescription>Fill out the form below to send an activation invitation to a new employee.</CardDescription>

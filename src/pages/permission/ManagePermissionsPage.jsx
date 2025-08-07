@@ -218,7 +218,7 @@ const canUpdate =
                           {allPermissions.map((perm) => (
                             <div
                               key={perm.id}
-                              className="flex items-center space-x-3 px-8 py-2 bg-white rounded-md"
+                              className="flex items-center space-x-3 px-8 py-2 border hover:bg-accent rounded-md"
                             >
                               <Checkbox
                               className="shadow-xl bg-input h-8 w-8"

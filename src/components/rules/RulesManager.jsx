@@ -12,7 +12,7 @@
 
 // const CompanyRulesManager = ({ rules, onDataChange }) => {
 //     const { register, handleSubmit, formState: { isDirty } } = useForm({
-//         defaultValues: rules.reduce((acc, rule) => ({ ...acc, [rule.setting_key]: rule.setting_value }), {})
+//         defaultValues: rules.reduce((acc, rule) => ({ ...acc, [rule.rule_key]: rule.rule_value }), {})
 //     });
 //     const {user} = useAuth()
 
@@ -26,8 +26,8 @@
 
 //     const onSubmit = async (data) => {
 //         const payload = Object.keys(data).map(key => ({
-//             setting_key: key,
-//             setting_value: data[key]
+//             rule_key: key,
+//             rule_value: data[key]
 //         }));
         
 //         try {
@@ -48,9 +48,9 @@
 //             <CardContent>
 //                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 //                     {rules.map(rule => (
-//                         <div key={rule.setting_key}>
-//                             <Label>{rule.description || rule.setting_key}</Label>
-//                             <Input type="number" {...register(rule.setting_key)} />
+//                         <div key={rule.rule_key}>
+//                             <Label>{rule.description || rule.rule_key}</Label>
+//                             <Input type="number" {...register(rule.rule_key)} />
 //                         </div>
 //                     ))}
 //                     <Button type="submit" disabled={!isDirty}>Save Changes</Button>
@@ -85,7 +85,7 @@ import { PERMISSIONS } from '@/config/permissions';
 const CompanyRulesManager = ({ rules, onDataChange }) => {
     const { register, handleSubmit, formState: { isDirty } } = useForm({
         defaultValues: rules.reduce(
-            (acc, rule) => ({ ...acc, [rule.setting_key]: rule.setting_value }),
+            (acc, rule) => ({ ...acc, [rule.rule_key]: rule.rule_value }),
             {}
         )
     });
@@ -106,8 +106,8 @@ const CompanyRulesManager = ({ rules, onDataChange }) => {
 
     const onSubmit = async (data) => {
         const payload = Object.keys(data).map(key => ({
-            setting_key: key,
-            setting_value: data[key]
+            rule_key: key,
+            rule_value: data[key]
         }));
 
         try {
@@ -130,12 +130,12 @@ const CompanyRulesManager = ({ rules, onDataChange }) => {
             <CardContent>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     {rules.map(rule => (
-                        <div key={rule.setting_key}>
-                            <Label>{rule.description || rule.setting_key}</Label>
+                        <div key={rule.rule_key}>
+                            <Label>{rule.description || rule.rule_key}</Label>
                             <Input
                                 type="number"
                                 disabled={!canUpdate}
-                                {...register(rule.setting_key)}
+                                {...register(rule.rule_key)}
                             />
                         </div>
                     ))}

@@ -6,7 +6,9 @@ import {
   ShieldCheck,
   CalendarPlus,
   CalendarRange,
-  ShieldUser
+  ShieldUser,
+  Banknote,
+  BanknoteArrowUp
 } from "lucide-react";
 import { PERMISSIONS } from "@/config/permissions";
 
@@ -57,4 +59,10 @@ export const navItems = [
     label: "rules",
     permission: PERMISSIONS.PAGES.RULES_MANAGEMENT,
   },
+    {
+    href: "/payroll",
+    icon: Banknote,
+    label: "Payroll",
+    permission: PERMISSIONS.PAGES.MANAGE_EMPLOYEE_PERMISSIONS,
+  }
 ];

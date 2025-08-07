@@ -267,7 +267,7 @@
 
 
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback }  from "react";
 import apiClient from "@/api/axiosConfig";
 import useAuth from "@/hooks/useAuth";
 import { DashboardCard } from "@/components/dashboard/DashboardCard";
@@ -275,7 +275,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Spinner } from "@/components/ui/spinner";
 import { Users, ListChecks, Activity, Star, User } from "lucide-react";
 import PerformanceChart from "@/components/dashboard/PerformanceChart";
-import { PERMISSIONS } from "../config/permissions";
+import DailyAttendanceWidget from '@/components/attendance/DailyAttendanceWidget';
+import { PERMISSIONS } from "@/config/permissions";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useT } from "@/hooks/useT";
 
@@ -325,6 +326,10 @@ const DashboardPage = () => {
 
   return (
     <div className="container mx-auto space-y-6">
+<div   className="max-w-sm" >
+        <DailyAttendanceWidget/>
+</div>
+      
       <div className="flex flex-col sm:flex-row sm:justify-end sm:items-center">
        
         {canViewAllPerformance && (
@@ -341,6 +346,8 @@ const DashboardPage = () => {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
+
+        
         <Card>
           <CardHeader>
             <CardTitle>{ t('last-7-days-performance')}</CardTitle>
@@ -360,7 +367,7 @@ const DashboardPage = () => {
           </CardContent>
         </Card>
       </div>
-
+ 
       {!loading.summary && summary && (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <DashboardCard title={summary.kpi1.title} value={summary.kpi1.value} icon={Users} />

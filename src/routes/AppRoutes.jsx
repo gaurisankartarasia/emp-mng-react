@@ -204,7 +204,6 @@ const AppRoutes = () => {
       <Route path="/activate-account" element={<ActivateAccountPage />} />
       
       {/* --- PRIVATE ROUTES --- */}
-      {/* Any other path will mount the PrivateRoutes component, which CONTAINS the AuthProvider */}
       <Route path="/*" element={<PrivateRoutes />} />
     </Routes>
     </AuthProvider>
