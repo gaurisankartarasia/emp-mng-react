@@ -63,6 +63,20 @@ export const navItems = [
     href: "/payroll",
     icon: Banknote,
     label: "Payroll",
-    permission: PERMISSIONS.PAGES.MANAGE_EMPLOYEE_PERMISSIONS,
+    permission: PERMISSIONS.PAGES.PAYROLL_MANAGEMENT,
+  }
+  ,
+    {
+    href: "/manage-salary-components",
+    icon: Banknote,
+    label: "Salary Components",
+    permission: null,
+  }
+  ,
+    {
+    href: "/salary-structure",
+    icon: Banknote,
+    label: "Salary Structure",
+    permission: null,
   }
 ];

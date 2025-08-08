@@ -20,6 +20,8 @@ import RulesManagerPage from "@/pages/rules/RulesPage";
 import MyLeaveHistoryPage from "@/pages/leaves/MyLeaveHistoryPage";
 import SignOutPage from "@/pages/auth/SignOutPage";
 import PayrollPage from "@/pages/payroll/PayrollPage";
+import SalaryStructurePage from "@/pages/payroll/SalaryStructurePage";
+import SalaryComponentsPage from "@/pages/payroll/ManageSalaryComponentsPage";
 
 const ProtectedPage = ({ children, permission }) => (
   <ProtectedRoute permission={permission}>
@@ -172,6 +174,22 @@ const PrivateRoutes = () => {
         </ProtectedPage>
     }
 />
+  <Route 
+        path="/salary-structure"
+        element={
+            <ProtectedPage /* permission={PERMISSIONS.PAGES.SALARY_MANAGEMENT} */>
+                <SalaryStructurePage />
+            </ProtectedPage>
+        }
+    />
+  <Route 
+        path="/manage-salary-components"
+        element={
+            <ProtectedPage /* permission={PERMISSIONS.PAGES.SALARY_MANAGEMENT} */>
+                <SalaryComponentsPage />
+            </ProtectedPage>
+        }
+    />
  
       </Routes>
   );

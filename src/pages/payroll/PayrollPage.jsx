@@ -13,7 +13,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Spinner } from '@/components/ui/spinner';
-import { Eye } from 'lucide-react';
+import { Eye , ReceiptText} from 'lucide-react';
+import SalarySlipDetailsDialog from '@/components/payroll/SalarySlipDetailsDialog';
+
 
 const PayrollPage = () => {
     const [recentReports, setRecentReports] = useState([]);
@@ -21,6 +23,8 @@ const PayrollPage = () => {
     const [isGenerating, setIsGenerating] = useState(false);
     const [isPolling, setIsPolling] = useState(false);
     const { handleSubmit, setValue } = useForm();
+        const [selectedSlip, setSelectedSlip] = useState(null);
+
     
     const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
 
@@ -94,38 +98,33 @@ const PayrollPage = () => {
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 5 }, (_, i) => currentYear - i);
     
-        const tableData = useMemo(() => {
-        if (!activeReport?.SalarySlips) {
-            return [];
+     const tableData = useMemo(() => activeReport?.SalarySlips || [], [activeReport]);
+
+
+
+     const tableColumns = useMemo(() => [
+        { id: 'sl_no', header: "SL NO", cell: ({ row, table }) => {
+                        const pageIndex = table.getState().pagination.pageIndex;
+            const pageSize = table.getState().pagination.pageSize;
+            
+            const serialNumber = pageIndex * pageSize + row.index + 1;
+            
+            return <span>{serialNumber}</span>; 
+         } },
+        { accessorKey: "employee_name", header: "Employee Name" },
+        { accessorKey: "gross_earnings", header: "Gross Earnings" },
+        { accessorKey: "total_payable_days", header: "Payable Days" },
+        { accessorKey: "total_deductions", header: "Total Deductions" },
+        { accessorKey: "net_salary", header: "Net Salary" },
+        {
+            id: 'actions',
+            header: "Details",
+            cell: ({ row }) => {
+                const slip = row.original;
+                return <Button variant="ghost" size="icon" onClick={() => setSelectedSlip(slip)}><ReceiptText/></Button>
+            }
         }
-
-        return activeReport.SalarySlips.map(slip => {
-
-            const breakdown = JSON.parse(slip.breakdown_data || '{}');
-
-
-
-            return {
-                employee: {
-                    id: slip.employee_id,
-                    name: slip.employee_name
-                },
-                salaryDetails: {
-                    grossSalary: slip.gross_salary,
-                    deductions: slip.deductions,
-                    netSalary: slip.net_salary
-                },
-                attendanceBreakdown: {
-                    presentDays: breakdown.presentDays,
-                    paidLeaveDays: breakdown.paidLeaveDays,
-                    unpaidDays: breakdown.unpaidDays,
-                    totalPayableDays: slip.total_payable_days 
-                }
-            };
-        });
-
-    }, [activeReport]);
-    const tableColumns = useMemo(() => columns, []);
+    ], []);
 
     const getStatusBadge = (status) => {
         if (status === 'completed') return <Badge variant="success">Completed</Badge>;
@@ -163,17 +162,30 @@ const PayrollPage = () => {
                    
                      
                      </CardHeader>
+               
                     <CardContent>
-                        <ul className="space-y-2">
-                            {recentReports.map(report => (
-                                <li key={report.id} className="flex justify-between items-center p-2">
-                                    <span>{report.month}/{report.year}</span>
-                                    {getStatusBadge(report.status)}
-                                    <Button variant="outline" size="sm" onClick={() => handleViewReport(report.id)} disabled={report.status !== 'completed'}> <Eye/> View</Button>
-                                </li>
-                            ))}
-                        </ul>
-                    </CardContent>
+  <ul className="space-y-2">
+    {recentReports.length > 0 ? (
+      recentReports.map(report => (
+        <li key={report.id} className="flex justify-between items-center p-2">
+          <span>{report.month}/{report.year}</span>
+          {getStatusBadge(report.status)}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handleViewReport(report.id)}
+            disabled={report.status !== 'completed'}
+            aria-label={`View report for ${report.month}/${report.year}`}
+          >
+            <Eye /> View
+          </Button>
+        </li>
+      ))
+    ) : (
+      <li className="p-2 text-gray-500">No reports available</li>
+    )}
+  </ul>
+</CardContent>
                 </Card>
                 
                 <div className="md:col-span-3">
@@ -200,6 +212,15 @@ const PayrollPage = () => {
                     )}
                 </div>
             </div>
+               <SalarySlipDetailsDialog
+                slip={selectedSlip}
+                open={!!selectedSlip}
+                onOpenChange={(isOpen) => {
+                    if (!isOpen) {
+                        setSelectedSlip(null); 
+                    }
+                }}
+            />
         </div>
     );
 };

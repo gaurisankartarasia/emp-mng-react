@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
-import { IndianRupee } from 'lucide-react';
 
 const SalarySlip = ({ slipData }) => {
     if (!slipData) return null;
