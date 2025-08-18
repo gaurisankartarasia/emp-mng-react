@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeProvider";
 import './i18n';
+// import './bootstrap.min.css'
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

@@ -13,6 +13,11 @@ import {
 import { Clock, LogIn, LogOut } from 'lucide-react';
 import { formatDateTime } from '@/utils/dateFormat';
 
+import { Rocket } from "lucide-react"; // Example icon
+
+// ...
+
+
 const DailyAttendanceWidget = () => {
     const [attendance, setAttendance] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -130,6 +135,7 @@ const DailyAttendanceWidget = () => {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
+         
         </>
     );
 };

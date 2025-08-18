@@ -21,7 +21,6 @@ export const deleteSalaryComponent = async (id) => {
 
 
 export const getEmployeeList = async () => {
-    // Reusing the simple list endpoint
     const { data } = await apiClient.get('/payroll/list-employees');
     return data;
 };

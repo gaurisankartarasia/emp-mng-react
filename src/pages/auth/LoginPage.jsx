@@ -38,7 +38,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-[700px] ">
+    <div className="flex items-center justify-center h-screen ">
       <Card className="w-full max-w-md ">
         <form onSubmit={handleSubmit}>
           <CardHeader>
@@ -81,6 +81,60 @@ const LoginPage = () => {
         </form>
       </Card>
     </div>
+    //   <div className="d-flex align-items-center justify-content-center" style={{ height: "700px" }}>
+    //   <div className="card w-100" style={{ maxWidth: "400px" }}>
+    //     <div className="card-body">
+    //       <h5 className="card-title">Authentication</h5>
+    //       <p className="card-text text-muted">
+    //         Enter your email, phone or employee ID below to login to your account.
+    //       </p>
+
+    //       <form onSubmit={handleSubmit}>
+    //         {/* Identifier */}
+    //         <div className="mb-3">
+    //           <label htmlFor="identifier" className="form-label">Email / Phone / Employee ID</label>
+    //           <input
+    //             type="text"
+    //             className="form-control"
+    //             id="identifier"
+    //             placeholder="m@example.com"
+    //             value={identifier}
+    //             onChange={(e) => setIdentifier(e.target.value)}
+    //             required
+    //           />
+    //         </div>
+
+    //         {/* Password */}
+    //         <div className="mb-3">
+    //           <label htmlFor="password" className="form-label">Password</label>
+    //           <input
+    //             type="password"
+    //             className="form-control"
+    //             id="password"
+    //             value={password}
+    //             onChange={(e) => setPassword(e.target.value)}
+    //             required
+    //           />
+    //         </div>
+
+    //         {/* Error Message */}
+    //         {error && <p className="text-danger small">{error}</p>}
+
+    //         {/* Submit Button */}
+    //         <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+    //           {loading && (
+    //             <span
+    //               className="spinner-border spinner-border-sm me-2"
+    //               role="status"
+    //               aria-hidden="true"
+    //             ></span>
+    //           )}
+    //           Authenticate
+    //         </button>
+    //       </form>
+    //     </div>
+    //   </div>
+    // </div>
   );
 };
 

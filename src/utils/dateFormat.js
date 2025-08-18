@@ -66,3 +66,12 @@ export function formatDateTime(isoString) {
   return `${getOrdinal(day)} ${month}, ${year}, ${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} ${ampm}`;
 }
 
+
+
+export function getMonthNameFromMonthNumber(monthNumber) {
+  // Month numbers in JavaScript's Date object are 0-indexed (0 for January, 11 for December)
+  // So, subtract 1 from the given monthNumber if it's 1-indexed.
+  const date = new Date(2000, monthNumber - 1, 1); // Use a dummy date, only month matters
+  const options = { month: 'long' }; // 'long' for full month name, 'short' for abbreviated
+  return date.toLocaleDateString('en-US', options); // 'en-US' for English locale
+}

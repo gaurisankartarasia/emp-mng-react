@@ -43,14 +43,14 @@ export function DataTable({
 
   return (
     <div>
-        <div className="rounded-md border">
+        <div className="rounded-md border ">
             <Table>
                 <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
                     <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                         return (
-                        <TableHead key={header.id}>
+                        <TableHead key={header.id}  className="border text-center">
                             {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                         </TableHead>
                         );
@@ -63,7 +63,7 @@ export function DataTable({
                     table.getRowModel().rows.map((row) => (
                     <TableRow key={row.id}>
                         {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
+                        <TableCell key={cell.id}   className="border text-center" >
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </TableCell>
                         ))}
@@ -71,7 +71,7 @@ export function DataTable({
                     ))
                 ) : (
                     <TableRow>
-                    <TableCell colSpan={columns.length} className="h-24 text-center">
+                    <TableCell colSpan={columns.length} className="h-24 ">
                         No results.
                     </TableCell>
                     </TableRow>

@@ -1,114 +1,3 @@
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import apiClient from '../api/axiosConfig';
-// import { ImageUploader } from '../components/ImageUploader';
-// import { toast } from 'sonner';
-// import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-// import { Input } from "@/components/ui/input";
-// import { Button } from "@/components/ui/button";
-// import { Label } from "@/components/ui/label";
-// import { Textarea } from '@/components/ui/textarea';
-// import { Loader2, Save, X } from 'lucide-react';
-
-// const AddEmployeePage = () => {
-//   const navigate = useNavigate();
-//   const [formState, setFormState] = useState({
-//     name: '',
-//     email: '',
-//     phone: '',
-//     address: '',
-//     current_salary: '',
-//     joined_at: '',
-//     password: ''
-//   });
-//   const [pictureFile, setPictureFile] = useState(null);
-//   const [error, setError] = useState('');
-//   const [loading, setLoading] = useState(false);
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormState(prevState => ({ ...prevState, [name]: value }));
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setError('');
-//     if (!formState.password || formState.password.length < 6) {
-//       setError('Password is required and must be at least 6 characters long.');
-//       return;
-//     }
-//     setLoading(true);
-
-//     const formData = new FormData();
-//     Object.entries(formState).forEach(([key, value]) => {
-//       formData.append(key, value);
-//     });
-//     if (pictureFile) {
-//       formData.append('picture', pictureFile);
-//     }
-
-//     try {
-//       await apiClient.post('/employees', formData, {
-//         headers: { 'Content-Type': 'multipart/form-data' }
-//       });
-//       toast.success("Employee created successfully!");
-//       navigate('/employees');
-//     } catch (err) {
-//       setError(err.response?.data?.message || 'An error occurred while creating the employee.');
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div className="container mx-auto max-w-4xl py-6">
-//       <form onSubmit={handleSubmit}>
-//         <Card>
-//           <CardHeader>
-//             <CardTitle>Add New Employee</CardTitle>
-//             <CardDescription>Fill out the form below to add a new employee to the system.</CardDescription>
-//           </CardHeader>
-//           <CardContent className="space-y-6">
-//             <div>
-//               <Label>Profile Picture</Label>
-//               <div className="mt-2">
-//                 <ImageUploader onFileSelect={setPictureFile} />
-//               </div>
-//             </div>
-
-//             <div className="grid md:grid-cols-2 gap-6">
-//               <div className="space-y-2"><Label htmlFor="name">Full Name</Label><Input id="name" name="name" value={formState.name} onChange={handleInputChange} required /></div>
-//               <div className="space-y-2"><Label htmlFor="email">Email Address</Label><Input id="email" type="email" name="email" value={formState.email} onChange={handleInputChange} required /></div>
-//               <div className="space-y-2"><Label htmlFor="phone">Phone</Label><Input id="phone" name="phone" value={formState.phone} onChange={handleInputChange} /></div>
-//               <div className="space-y-2"><Label htmlFor="password">Password</Label><Input id="password" type="password" name="password" value={formState.password} onChange={handleInputChange} required /></div>
-//               <div className="space-y-2"><Label htmlFor="current_salary">Current Salary</Label><Input type="number" id="current_salary" name="current_salary" value={formState.current_salary} onChange={handleInputChange} /></div>
-//               <div className="space-y-2"><Label htmlFor="joined_at">Joining Date</Label><Input type="date" id="joined_at" name="joined_at" value={formState.joined_at} onChange={handleInputChange} required /></div>
-//             </div>
-
-//             <div className="space-y-2">
-//               <Label htmlFor="address">Address</Label>
-//               <Textarea id="address" name="address" value={formState.address} onChange={handleInputChange} />
-//             </div>
-
-//             {error && <p className="text-sm text-destructive">{error}</p>}
-//           </CardContent>
-//           <CardFooter className="border-t px-6 py-4 flex justify-between">
-//             <Button type="button" variant="outline" onClick={() => navigate('/employees')} disabled={loading}>
-//               <X className="mr-2 h-4 w-4" /> Cancel
-//             </Button>
-//             <Button type="submit" disabled={loading}>
-//               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-//               <Save className="mr-2 h-4 w-4" /> Create Employee
-//             </Button>
-//           </CardFooter>
-//         </Card>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default AddEmployeePage;
-
 
 
 import React, { useState } from 'react';
@@ -131,7 +20,7 @@ const AddEmployeePage = () => {
     email: '',
     phone: '',
     address: '',
-    current_salary: '',
+    // current_salary: '',
     joined_at: '',
   });
   const [pictureFile, setPictureFile] = useState(null);
@@ -172,7 +61,7 @@ const AddEmployeePage = () => {
   return (
     <div className="container mx-auto max-w-4xl py-6">
       <form onSubmit={handleSubmit}>
-        <Card >
+        <div >
           <CardHeader>
             <CardTitle>Invite New Employee</CardTitle>
             <CardDescription>Fill out the form below to send an activation invitation to a new employee.</CardDescription>
@@ -189,7 +78,7 @@ const AddEmployeePage = () => {
               <div className="space-y-2"><Label htmlFor="name">Full Name</Label><Input id="name" name="name" value={formState.name} onChange={handleInputChange} required /></div>
               <div className="space-y-2"><Label htmlFor="email">Email Address</Label><Input id="email" type="email" name="email" value={formState.email} onChange={handleInputChange} required /></div>
               <div className="space-y-2"><Label htmlFor="phone">Phone</Label><Input id="phone" name="phone" value={formState.phone} onChange={handleInputChange} /></div>
-              <div className="space-y-2"><Label htmlFor="current_salary">Current Salary</Label><Input type="number" id="current_salary" name="current_salary" value={formState.current_salary} onChange={handleInputChange} /></div>
+              {/*<div className="space-y-2"><Label htmlFor="current_salary">Current Salary</Label><Input type="number" id="current_salary" name="current_salary" value={formState.current_salary} onChange={handleInputChange} /></div>*/}
               <div className="space-y-2"><Label htmlFor="joined_at">Joining Date</Label><Input type="date" id="joined_at" name="joined_at" value={formState.joined_at} onChange={handleInputChange} required /></div>
             </div>
 
@@ -209,7 +98,7 @@ const AddEmployeePage = () => {
               <SendHorizonal /> Send invitation mail
             </Button>
           </CardFooter>
-        </Card>
+        </div>
       </form>
     </div>
   );

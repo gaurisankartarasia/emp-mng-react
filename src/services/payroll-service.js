@@ -35,6 +35,18 @@ export const getRecentReports = async () => {
     return data;
 };
 
+
+export const getPayrollPreview = async (data) => {
+    try {
+        const { data: previewData } = await apiClient.post('/payroll/preview', data);
+        return previewData;
+    } catch (error) {
+  
+        throw new Error(error.response?.data?.message || 'Failed to fetch payroll preview');
+    }
+};
+
+
 export const initiatePayrollGeneration = async (reportData) => {
     // reportData is { month, year }
     const { data } = await apiClient.post('/payroll/initiate', reportData);

@@ -45,6 +45,7 @@ const SalaryComponentsPage = () => {
             reset({
                 name: '',
                 type: 'Earning',
+                is_days_based: true,
                 is_base_component: false
             });
         }
@@ -52,6 +53,7 @@ const SalaryComponentsPage = () => {
     };
 
     const onSubmit = async (data) => {
+        // data.is_days_based = data.is_days_based === "true"; 
         data.is_base_component = !!data.is_base_component;
 
         try {
@@ -90,27 +92,33 @@ const SalaryComponentsPage = () => {
             <header className="mb-6 flex justify-between items-center">
                 <div>
                     <h1 className="text-2xl font-bold tracking-tight">Salary Components</h1>
-                    <p className="text-muted-foreground">Manage the master list of salary components for your organization.</p>
+                    <p className="text-muted-foreground">Manage the master list of salary components.</p>
                 </div>
                 <Button onClick={() => openDialog()}>Add New Component</Button>
             </header>
 
             <Card>
-                <CardContent className="p-0">
+                <CardContent>
                     <Table>
                         <TableHeader>
                             <TableRow>
+                                <TableHead>SL NO </TableHead>
+                                <TableHead>Component ID</TableHead>
                                 <TableHead>Component Name</TableHead>
                                 <TableHead>Type</TableHead>
-                                <TableHead>Is Base for Percentage?</TableHead>
+                                <TableHead>Days</TableHead>
+                                <TableHead>Base</TableHead>
                                 <TableHead className="text-right">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {components.map(comp => (
+                            {components.map((comp, i) => (
                                 <TableRow key={comp.id}>
+                                     <TableCell>{i + 1}</TableCell>
+                                     <TableCell>{comp.id}</TableCell>
                                     <TableCell className="font-medium">{comp.name}</TableCell>
                                     <TableCell>{comp.type}</TableCell>
+                                     <TableCell>{comp.is_days_based ? 'Yes' : 'No'}</TableCell>
                                     <TableCell>{comp.is_base_component ? 'Yes' : 'No'}</TableCell>
                                     <TableCell className="text-right space-x-2">
                                         <Button variant="outline" size="sm" onClick={() => openDialog(comp)}>Edit</Button>
@@ -150,6 +158,46 @@ const SalaryComponentsPage = () => {
                                 )}
                             />
                         </div>
+
+                          <div>
+                            <Label>Days based</Label>
+                          {/*  <Controller
+                                name="is_days_based"
+                                control={control}
+                                render={({ field }) => (
+                                    <Select onValueChange={field.onChange} value={field.value}>
+                                        <SelectTrigger><SelectValue /></SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="true">Yes</SelectItem>
+                                            <SelectItem value="false">No</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                )}
+                            />*/}
+
+                            <Controller
+    name="is_days_based"
+    control={control}
+    render={({ field }) => (
+        <Select
+            onValueChange={(val) => field.onChange(val === "true")}
+            value={String(field.value)} 
+        >
+            <SelectTrigger>
+                <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectItem value="true">Yes</SelectItem>
+                <SelectItem value="false">No</SelectItem>
+            </SelectContent>
+        </Select>
+    )}
+/>
+
+                        </div>
+
+
+
                         <div className="flex items-center space-x-2">
                             <Controller
                                 name="is_base_component"

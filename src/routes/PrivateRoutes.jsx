@@ -22,6 +22,9 @@ import SignOutPage from "@/pages/auth/SignOutPage";
 import PayrollPage from "@/pages/payroll/PayrollPage";
 import SalaryStructurePage from "@/pages/payroll/SalaryStructurePage";
 import SalaryComponentsPage from "@/pages/payroll/ManageSalaryComponentsPage";
+ import ChatPage from "@/pages/chat/ChatPage";
+
+ import { SocketProvider } from "@/context/SocketContext";
 
 const ProtectedPage = ({ children, permission }) => (
   <ProtectedRoute permission={permission}>
@@ -31,6 +34,7 @@ const ProtectedPage = ({ children, permission }) => (
 
 const PrivateRoutes = () => {
   return (
+    <SocketProvider>
       <Routes>
         <Route path="/unauthorized" element={<ProtectedPage><UnauthorizedPage /></ProtectedPage>} />
         <Route path="/signout" element={<SignOutPage />} />
@@ -190,8 +194,26 @@ const PrivateRoutes = () => {
             </ProtectedPage>
         }
     />
+
+     <Route 
+        path="/chat/:userId"
+        element={
+            <ProtectedPage /* permission={PERMISSIONS.PAGES.SALARY_MANAGEMENT} */>
+                <ChatPage />
+            </ProtectedPage>
+        }
+    />
+     <Route 
+        path="/chat"
+        element={
+            <ProtectedPage /* permission={PERMISSIONS.PAGES.SALARY_MANAGEMENT} */>
+                <ChatPage />
+            </ProtectedPage>
+        }
+    />
  
       </Routes>
+      </SocketProvider>
   );
 };
 
