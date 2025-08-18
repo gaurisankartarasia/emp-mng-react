@@ -19,7 +19,7 @@ const AccountEditPage = () => {
     const [shouldRemovePicture, setShouldRemovePicture] = useState(false);
     const [loading, setLoading] = useState({ page: true, saving: false });
     const navigate = useNavigate();
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace('/api/v1', '');
+    const apiBaseUrl = import.meta.env.API_URL.replace('/api/v1', '');
 
     useEffect(() => {
         apiClient.get('/account/me')

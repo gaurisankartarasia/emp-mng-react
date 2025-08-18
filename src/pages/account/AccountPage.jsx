@@ -18,7 +18,7 @@ import { Spinner } from "@/components/ui/spinner";
 const AccountDisplayPage = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api/v1", "");
+  const apiBaseUrl = import.meta.env.API_URL.replace("/api/v1", "");
 
   useEffect(() => {
     const fetchProfile = async () => {
