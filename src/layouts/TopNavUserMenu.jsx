@@ -15,7 +15,7 @@ import { CircleUser, Settings, LogOut } from "lucide-react";
 
 export function UserNav() {
   const { user } = useAuth();
-  const apiBaseUrl = import.meta.env.API_URL.replace("/api/v1", "");
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api/v1", "");
 
   return (
     <DropdownMenu>

@@ -20,7 +20,7 @@ import EmployeeHoverCard from "./EmployeeHoverCard";
 import { Link } from "react-router-dom";
 import { formatDate } from "@/utils/dateFormat";
 
-const apiBaseUrl = import.meta.env.API_URL.replace("/api/v1", "");
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api/v1", "");
 
 export const createColumns = ({
   openDeleteDialog,

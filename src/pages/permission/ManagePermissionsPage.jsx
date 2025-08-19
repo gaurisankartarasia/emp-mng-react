@@ -31,7 +31,7 @@ const ManagePermissionsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
-  const apiBaseUrl = import.meta.env.API_URL.replace("/api/v1", "");
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api/v1", "");
 
  const canRead =
   user?.is_master ||
