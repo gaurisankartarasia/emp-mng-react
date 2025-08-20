@@ -11,17 +11,16 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true); // Add loading state
   const navigate = useNavigate();
 
-  // Check for token and fetch user data on mount
   useEffect(() => {
     const verifyToken = async () => {
       try {
         const response = await apiClient.get('/auth/session');
-        setUser(response.data.employee); // Assuming the endpoint returns user data in response.data.employee
+        setUser(response.data.employee);
       } catch (error) {
         console.error('Token verification failed:', error);
-        setUser(null); // Clear user state if token is invalid
+        setUser(null); 
       } finally {
-        setLoading(false); // Set loading to false after verification
+        setLoading(false); 
       }
     };
 
@@ -33,7 +32,7 @@ export const AuthProvider = ({ children }) => {
       const response = await apiClient.post('/auth/login', { identifier, password });
       const { employee } = response.data;
       setUser(employee);
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
       console.error('Login failed:', error);
       throw error;
@@ -53,7 +52,7 @@ export const AuthProvider = ({ children }) => {
   const value = {
     user,
     isAuthenticated: !!user,
-    loading, // Expose loading state
+    loading, 
     login,
     logout,
   };

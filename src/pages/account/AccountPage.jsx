@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {  UserCircle, Edit } from "lucide-react";
+import {  UserCircle, Edit, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 import { calculateExperience } from "@/utils/calculateExperience";
 import { formatDate } from "@/utils/dateFormat";
@@ -18,7 +18,7 @@ import { Spinner } from "@/components/ui/spinner";
 const AccountDisplayPage = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  const apiBaseUrl = import.meta.env.API_URL.replace("/api/v1", "");
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api", "");
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -57,12 +57,20 @@ const AccountDisplayPage = () => {
               <UserCircle className="mr-2" />
               My Profile
             </CardTitle>
-            <Link to="/account/edit">
+         <div   className="flex gap-3" >
+             <Link to="/account/edit">
               <Button variant="outline" size="sm">
                 <Edit className="mr-2 h-4 w-4" />
                 Edit Profile
               </Button>
             </Link>
+                    <Link to="/account/settings">
+              <Button variant="outline" size="sm">
+                <Settings className="mr-2 h-4 w-4" />
+                Settings
+              </Button>
+            </Link>
+          </div>
           </div>
           <img
             className="w-32 h-32 rounded-full"

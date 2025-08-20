@@ -21,7 +21,7 @@ import { Badge } from "../ui/badge";
 import { useT } from "@/hooks/useT";
 
 const EmployeeHoverCard = ({ employee, children }) => {
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api/v1", "");
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace("/api", "");
   const t = useT()
 
   const formatCurrency = (amount) => {

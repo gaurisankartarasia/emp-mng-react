@@ -3,10 +3,8 @@
 import React, { useState, useEffect, useCallback , useMemo} from 'react';
 import { toast } from 'sonner';
 
-// --- Services ---
 import { getLeaveConfig, getCalendarData } from '@/services/leave-service';
 
-// --- UI Components ---
 import LeaveBalanceIndicator from '@/components/leave/LeaveBalanceIndicator';
 import InteractiveLeaveCalendar from '@/components/leave/InteractiveLeaveCalendar';
 import LeaveSummaryPanel from '@/components/leave/LeaveSummaryPanel';
@@ -23,7 +21,6 @@ import { RefreshCw, History } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const RequestLeavePage = () => {
-    // --- State Management ---
     const [balanceData, setBalanceData] = useState(null);
     const [calendarData, setCalendarData] = useState({ holidays: [], existingLeaves: [] });
     const [leaveTypes, setLeaveTypes] = useState([]);
@@ -33,7 +30,6 @@ const [formError, setFormError] = useState(null);
 
     const fetchData = useCallback(async () => {
         try {
-            // No need to set isLoading(true) here; it's set on initial mount
             const [config, calData] = await Promise.all([
                 getLeaveConfig(),
                 getCalendarData()

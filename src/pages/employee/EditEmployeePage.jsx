@@ -1,94 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import { useParams, useNavigate } from 'react-router-dom';
-// import apiClient from '../api/axiosConfig';
-
-// const EditEmployeePage = () => {
-//   const { id } = useParams();
-//   const navigate = useNavigate();
-//   const [formState, setFormState] = useState({ name: '', email: '', phone: '' });
-//   const [password, setPassword] = useState('');
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState('');
-
-//   useEffect(() => {
-//     const fetchEmployee = async () => {
-//       try {
-//         const response = await apiClient.get(`/employees/${id}`);
-//         setFormState(response.data);
-//       } catch (err) {
-//         setError('Failed to load employee data.', err);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-//     fetchEmployee();
-//   }, [id]);
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormState(prevState => ({ ...prevState, [name]: value }));
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setError('');
-//     const dataToUpdate = { ...formState };
-//     if (password) {
-//       if(password.length < 6) {
-//         setError('New password must be at least 6 characters long.');
-//         return;
-//       }
-//       dataToUpdate.password = password;
-//     }
-
-//     try {
-//       await apiClient.put(`/employees/${id}`, dataToUpdate);
-//       alert('Employee updated successfully!');
-//       navigate('/employees');
-//     } catch (err) {
-//       setError(err.response?.data?.message || 'An error occurred during the update.');
-//     }
-//   };
-
-//   if (loading) return <div>Loading...</div>;
-
-//   return (
-//     <div>
-//       <h1>Edit Employee (ID: {id})</h1>
-//       <form onSubmit={handleSubmit} style={{ padding: '20px', border: '1px solid #ccc' }}>
-//         <div style={{ marginBottom: '10px' }}>
-//           <label>Name: </label>
-//           <input type="text" name="name" value={formState.name} onChange={handleInputChange} required />
-//         </div>
-//         <div style={{ marginBottom: '10px' }}>
-//           <label>Email: </label>
-//           <input type="email" name="email" value={formState.email} onChange={handleInputChange} required />
-//         </div>
-//         <div style={{ marginBottom: '10px' }}>
-//           <label>Phone: </label>
-//           <input type="text" name="phone" value={formState.phone} onChange={handleInputChange} />
-//         </div>
-//         <div style={{ marginBottom: '10px' }}>
-//           <label>New Password: </label>
-//           <input 
-//             type="password" 
-//             name="password" 
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             placeholder="Leave blank to keep same" 
-//           />
-//         </div>
-//         {error && <p style={{ color: 'red' }}>{error}</p>}
-//         <button type="submit">Save Changes</button>
-//         <button type="button" onClick={() => navigate('/employees')} style={{ marginLeft: '10px' }}>Cancel</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default EditEmployeePage;
-
-
 
 import React, { useState, useEffect } from 'react';
 import apiClient from '@/api/axiosConfig';
@@ -112,7 +21,7 @@ const EditEmployeePage = () => {
     const [pictureFile, setPictureFile] = useState(null);
      const [shouldRemovePicture, setShouldRemovePicture] = useState(false);
     const [loading, setLoading] = useState({ page: true, saving: false });
-    const apiBaseUrl = import.meta.env.API_URL.replace('/api/v1', '');
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace('/api', '');
 
     useEffect(() => {
         const fetchEmployee = async () => {
